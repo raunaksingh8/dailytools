@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import ToolLayout from '../../components/ToolLayout';
 import { tools } from '../../data/tools';
 import { Copy, Download, Trash2, CheckCircle, XCircle } from 'lucide-react';
+import { downloadFile } from '../../utils/downloadFile';
+import { useToast } from '../../components/Toast';
 
 const JsonFormatter = () => {
   const tool = tools.find(t => t.slug === 'json-formatter');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [status, setStatus] = useState(null); 
+  const [status, setStatus] = useState(null);
+  const toast = useToast();
 
   const handleFormat = () => {
     if (!input.trim()) {
@@ -52,14 +55,8 @@ const JsonFormatter = () => {
   };
 
   const handleDownload = () => {
-    if (!output) return;
-    const blob = new Blob([output], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'formatted.json';
-    a.click();
-    URL.revokeObjectURL(url);
+    const ok = downloadFile(output, 'formatted.json', 'application/json');
+    if (!ok) toast('Nothing to download. Please format some JSON first.');
   };
 
   const toolbarActions = (
@@ -73,10 +70,10 @@ const JsonFormatter = () => {
       <button className="btn-secondary" onClick={handleValidate}>
         <CheckCircle size={16} /> Validate
       </button>
-      <button className="btn-secondary" onClick={handleCopy} title="Copy Output" style={{ marginLeft: 'auto' }}>
+      <button className="btn-secondary" onClick={handleCopy} title="Copy Output" aria-label="Copy Output">
         <Copy size={16} /> Copy Output
       </button>
-      <button className="btn-secondary" onClick={handleDownload} title="Download">
+      <button className="btn-secondary" onClick={handleDownload} title="Download" disabled={!output}>
         <Download size={16} /> Download
       </button>
     </>
@@ -134,9 +131,11 @@ const JsonFormatter = () => {
           borderRadius: 'var(--radius-md)', 
           backgroundColor: status.type === 'success' ? 'var(--success-bg)' : 'var(--error-bg)',
           color: status.type === 'success' ? 'var(--success)' : 'var(--error)',
-          display: 'flex', 
+          display: 'flex',
+          flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: '0.5rem',
           fontWeight: 500
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -144,8 +143,8 @@ const JsonFormatter = () => {
             {status.message}
           </div>
           {status.type === 'success' && output && (
-            <span style={{ fontSize: '0.875rem' }}>
-              {output.split('\n').length} lines • {output.length} characters
+            <span style={{ fontSize: '0.8125rem' }}>
+              {output.split('\n').length} lines · {output.length} chars
             </span>
           )}
         </div>

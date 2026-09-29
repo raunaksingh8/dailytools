@@ -3,6 +3,8 @@ import ToolLayout from '../../components/ToolLayout';
 import { tools } from '../../data/tools';
 import { UploadCloud, ArrowRight, Download, Image as ImageIcon } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
+import { downloadBlob } from '../../utils/downloadFile';
+import { useToast } from '../../components/Toast';
 
 const ImageCompressor = () => {
   const tool = tools.find(t => t.slug === 'image-compressor');
@@ -14,8 +16,9 @@ const ImageCompressor = () => {
   const [compressedUrl, setCompressedUrl] = useState('');
   const [compressedDetails, setCompressedDetails] = useState(null);
   
-  const [compressionLevel, setCompressionLevel] = useState(0.8); // 0.1 to 1.0 (reversed meaning for user)
+  const [compressionLevel, setCompressionLevel] = useState(0.8);
   const [isCompressing, setIsCompressing] = useState(false);
+  const toast = useToast();
 
   const formatSize = (bytes) => {
     if (bytes === 0) return '0 Bytes';
@@ -79,11 +82,13 @@ const ImageCompressor = () => {
   };
 
   const handleDownload = () => {
-    if (!compressedDetails || !compressedUrl) return;
-    const a = document.createElement('a');
-    a.href = compressedUrl;
-    a.download = `compressed-${originalFile.name}`;
-    a.click();
+    if (!compressedUrl || !compressedDetails) {
+      toast('Nothing to download. Please compress an image first.');
+      return;
+    }
+    // compressedDetails.blob is the actual File object
+    const ok = downloadBlob(compressedDetails.blob, `compressed-${originalFile.name}`);
+    if (!ok) toast('Nothing to download. Please compress an image first.');
   };
 
   const calculateSavings = () => {
@@ -119,7 +124,7 @@ const ImageCompressor = () => {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: '2rem', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}>
             {/* Original */}
             <div>
               <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Original Image</h4>
@@ -136,7 +141,7 @@ const ImageCompressor = () => {
               </div>
             </div>
             
-            <ArrowRight size={32} style={{ color: 'var(--accent-primary)' }} />
+            <ArrowRight size={32} style={{ color: 'var(--accent-primary)' }} className="hidden md-block" />
             
             {/* Compressed */}
             <div>
@@ -195,7 +200,7 @@ const ImageCompressor = () => {
             </div>
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
             <button className="btn-primary" onClick={handleCompress} disabled={isCompressing} style={{ minWidth: '150px' }}>
               {isCompressing ? 'Compressing...' : 'Compress Image'}
             </button>

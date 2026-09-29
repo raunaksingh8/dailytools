@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ToolLayout from '../../components/ToolLayout';
 import { tools } from '../../data/tools';
 import { UploadCloud, ArrowRight, Download, Image as ImageIcon } from 'lucide-react';
+import { downloadBlob } from '../../utils/downloadFile';
+import { useToast } from '../../components/Toast';
 
 export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
   const tool = tools.find(t => t.slug === slug);
@@ -9,6 +11,7 @@ export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
   const [originalUrl, setOriginalUrl] = useState('');
   const [convertedUrl, setConvertedUrl] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const toast = useToast();
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -41,14 +44,17 @@ export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
     img.src = originalUrl;
   };
 
-  const handleDownload = () => {
-    if (!convertedUrl || !originalFile) return;
-    const a = document.createElement('a');
-    a.href = convertedUrl;
+  const handleDownload = async () => {
+    if (!convertedUrl || !originalFile) {
+      toast('Nothing to download. Please convert an image first.');
+      return;
+    }
+    const response = await fetch(convertedUrl);
+    const blob = await response.blob();
     const baseName = originalFile.name.substring(0, originalFile.name.lastIndexOf('.')) || originalFile.name;
     const ext = formatName.toLowerCase();
-    a.download = `${baseName}-converted.${ext}`;
-    a.click();
+    const ok = downloadBlob(blob, `${baseName}-converted.${ext}`);
+    if (!ok) toast('Nothing to download. Please convert an image first.');
   };
 
   return (
@@ -61,7 +67,7 @@ export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: '2rem', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}>
             
             <div>
               <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Original Image</h4>
@@ -70,7 +76,7 @@ export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
               </div>
             </div>
             
-            <ArrowRight size={32} style={{ color: 'var(--accent-primary)' }} />
+            <ArrowRight size={32} style={{ color: 'var(--accent-primary)' }} className="hidden md-block" />
             
             <div>
               <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Converted to {formatName}</h4>
@@ -86,7 +92,7 @@ export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
             </div>
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
             <button className="btn-primary" onClick={handleConvert} disabled={isProcessing} style={{ minWidth: '150px' }}>
               {isProcessing ? 'Converting...' : `Convert to ${formatName}`}
             </button>

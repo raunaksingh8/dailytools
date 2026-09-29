@@ -53,6 +53,7 @@ export const UuidGeneratorTool = () => (
       for(let i=0; i<Math.min(count, 1000); i++) res += uuidv4() + '\n';
       return res.trim();
     }}
+    downloadConfig={{ filename: 'uuids.txt', mimeType: 'text/plain' }}
   />
 );
 
@@ -63,6 +64,7 @@ export const HashGeneratorTool = () => (
     processFn={(input) => {
       return `MD5:\n${CryptoJS.MD5(input).toString()}\n\nSHA-1:\n${CryptoJS.SHA1(input).toString()}\n\nSHA-256:\n${CryptoJS.SHA256(input).toString()}\n\nSHA-512:\n${CryptoJS.SHA512(input).toString()}`;
     }}
+    downloadConfig={{ filename: 'hashes.txt', mimeType: 'text/plain' }}
   />
 );
 
@@ -109,6 +111,7 @@ export const SqlFormatterTool = () => (
   <TextConversionTool 
     slug="sql-formatter" actionName="Format SQL"
     processFn={(input) => sqlFormat(input, { language: 'sql', tabWidth: 2, keywordCase: 'upper' })}
+    downloadConfig={{ filename: 'formatted.sql', mimeType: 'text/plain' }}
   />
 );
 
@@ -123,6 +126,7 @@ export const SqlInGeneratorTool = () => (
       const formatted = items.map(i => `'${i.replace(/'/g, "''")}'`).join(', ');
       return `IN (${formatted})`;
     }}
+    downloadConfig={{ filename: 'sql-in-clause.sql', mimeType: 'text/plain' }}
   />
 );
 
@@ -246,6 +250,7 @@ export const CurlGeneratorTool = () => (
       }
       return curl;
     }}
+    downloadConfig={{ filename: 'request.sh', mimeType: 'text/plain' }}
   />
 );
 

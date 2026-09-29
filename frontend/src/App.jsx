@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import { ToastProvider } from './components/Toast';
 import Home from './pages/Home';
 
 import Developer from './pages/Developer';
@@ -31,6 +33,7 @@ import { tools } from './data/tools';
 const App = () => {
   return (
     <BrowserRouter>
+      <ToastProvider />
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg-main)' }}>
         <Navbar />
         <main style={{ flex: 1 }}>
@@ -102,6 +105,7 @@ const App = () => {
             } />
           </Routes>
         </main>
+        <Footer />
       </div>
     </BrowserRouter>
   );

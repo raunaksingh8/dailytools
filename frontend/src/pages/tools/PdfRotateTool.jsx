@@ -3,17 +3,20 @@ import ToolLayout from '../../components/ToolLayout';
 import { tools } from '../../data/tools';
 import { PDFDocument, degrees } from 'pdf-lib';
 import { UploadCloud, Download, RotateCw } from 'lucide-react';
+import { downloadBlob } from '../../utils/downloadFile';
+import { useToast } from '../../components/Toast';
 
 export const PdfRotateTool = () => {
   const tool = tools.find(t => t.slug === 'rotate-pdf');
   const [file, setFile] = useState(null);
-  const [rotatedUrl, setRotatedUrl] = useState('');
+  const [rotatedBlob, setRotatedBlob] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const toast = useToast();
 
   const handleFile = (e) => {
     if (e.target.files[0]) {
       setFile(e.target.files[0]);
-      setRotatedUrl('');
+      setRotatedBlob(null);
     }
   };
 
@@ -29,12 +32,20 @@ export const PdfRotateTool = () => {
         page.setRotation(degrees(current + 90));
       });
       const pdfBytes = await pdf.save();
-      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      setRotatedUrl(URL.createObjectURL(blob));
+      setRotatedBlob(new Blob([pdfBytes], { type: 'application/pdf' }));
     } catch (e) {
-      alert("Error rotating PDF: " + e.message);
+      toast('Error rotating PDF: ' + e.message);
     }
     setIsProcessing(false);
+  };
+
+  const handleDownload = () => {
+    if (!rotatedBlob) {
+      toast('Nothing to download. Please rotate a PDF first.');
+      return;
+    }
+    const ok = downloadBlob(rotatedBlob, `rotated-${file.name}`);
+    if (!ok) toast('Nothing to download. The rotated PDF appears to be empty.');
   };
 
   return (
@@ -58,12 +69,12 @@ export const PdfRotateTool = () => {
           </div>
         )}
 
-        {rotatedUrl && (
-          <div style={{ marginTop: '2rem', padding: '2rem', backgroundColor: 'var(--success-bg)', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
-            <h3 style={{ color: 'var(--success)', marginBottom: '1rem' }}>Rotation Complete!</h3>
-            <a href={rotatedUrl} download={`rotated-${file.name}`} className="btn-primary" style={{ display: 'inline-flex' }}>
+        {rotatedBlob && (
+          <div style={{ marginTop: '2rem', padding: '1.5rem 2rem', backgroundColor: 'var(--success-bg)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+            <span style={{ color: 'var(--success)', fontWeight: 600 }}>✓ Rotation complete!</span>
+            <button className="btn-primary" onClick={handleDownload} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
               <Download size={16} /> Download Rotated PDF
-            </a>
+            </button>
           </div>
         )}
       </div>

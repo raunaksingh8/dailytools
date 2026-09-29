@@ -1,45 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
 
+/* =========================================
+   CSS Custom Properties (Light Mode)
+========================================= */
 :root {
-  /* Colors */
-  --bg-main: #F7F8FA;
-  --bg-card: #FFFFFF;
+  --bg-main:   #F7F8FA;
+  --bg-card:   #FFFFFF;
   --bg-navbar: #0F1115;
-  --bg-dark: #12141D;
-  --bg-hover: #F3F4F6;
-  
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --text-navbar: #FFFFFF;
-  --text-navbar-secondary: #9CA3AF;
-  
-  --bg-hero: #F7F8FA;
-  --text-hero: #111827;
+  --bg-hover:  #F3F4F6;
+
+  --text-primary:           #111827;
+  --text-secondary:         #6B7280;
+  --text-navbar:            #FFFFFF;
+  --text-navbar-secondary:  #9CA3AF;
+
+  --bg-hero:           #F7F8FA;
+  --text-hero:         #111827;
   --text-hero-secondary: #6B7280;
-  
+
   --border-color: #E5E7EB;
   --border-focus: #7C5CFC;
-  
+
   --accent-primary: #7C5CFC;
-  --accent-hover: #6343E9;
-  --accent-light: #F0EDFF;
-  
-  --success: #16A34A;
+  --accent-hover:   #6343E9;
+  --accent-light:   #F0EDFF;
+
+  --success:    #16A34A;
   --success-bg: #DCFCE7;
-  --error: #DC2626;
-  --error-bg: #FEE2E2;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-  
-  /* Typography */
+  --error:      #DC2626;
+  --error-bg:   #FEE2E2;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.025);
+
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  
-  /* Radii */
+
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -47,26 +45,41 @@
   --radius-2xl: 1.5rem;
 }
 
+/* =========================================
+   Dark Mode
+========================================= */
 body.dark {
-  --bg-main: #0F1115;
-  --bg-card: #1C1F26;
-  --bg-hover: #2D313A;
-  --text-primary: #F9FAFB;
+  --bg-main:  #0F1115;
+  --bg-card:  #151821;
+  --bg-hover: #1C1F26;
+
+  --text-primary:   #F9FAFB;
   --text-secondary: #9CA3AF;
-  --border-color: #2D313A;
+
+  --border-color: #2A2F3A;
   --shadow-sm: none;
   --shadow-md: none;
   --shadow-lg: none;
-  
-  --bg-hero: var(--bg-main);
-  --text-hero: var(--text-primary);
-  --text-hero-secondary: var(--text-secondary);
+
+  --bg-hero:            #0F1115;
+  --text-hero:          #F9FAFB;
+  --text-hero-secondary:#9CA3AF;
+
+  --accent-light: rgba(124,92,252,0.12);
 }
 
-* {
+/* =========================================
+   Reset
+========================================= */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  /* Prevent horizontal scroll from the document root */
+  overflow-x: hidden;
 }
 
 body {
@@ -76,6 +89,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-width: 320px;
+  overflow-x: hidden;
 }
 
 a {
@@ -88,54 +103,115 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  min-height: 36px;      /* accessible touch target baseline */
 }
 
 input, textarea, select {
   font-family: inherit;
+  box-sizing: border-box;
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+  /* Ensures native browser widgets (date, color, etc.) respect theme */
+  color-scheme: light;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+  color-scheme: dark;
+}
+
+/* Placeholder contrast in both themes */
+::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.75;
+}
+
+/* Select option elements */
+option {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* Focus ring — all interactive inputs */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
 }
 
 code, pre {
   font-family: var(--font-mono);
 }
 
-/* Utilities */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================
+   Layout Utilities
+========================================= */
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding-inline: 1rem;        /* 16px mobile */
+}
+@media (min-width: 640px)  { .container { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container { padding-inline: 2rem; } }
+
+/* =========================================
+   Responsive Visibility
+========================================= */
+.hidden   { display: none !important; }
+
+@media (min-width: 768px) {
+  .md-block  { display: block  !important; }
+  .md-flex   { display: flex   !important; }
+  .md-hidden { display: none   !important; }
+}
+@media (min-width: 1024px) {
+  .lg-block  { display: block  !important; }
+  .lg-flex   { display: flex   !important; }
+  .lg-hidden { display: none   !important; }
 }
 
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-accent { color: var(--accent-primary); }
+/* =========================================
+   Typography Utilities
+========================================= */
+.text-primary   { color: var(--text-primary);   }
+.text-secondary { color: var(--text-secondary);  }
+.text-accent    { color: var(--accent-primary);  }
 
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
+/* Fluid hero heading */
+.responsive-hero-text {
+  font-size: clamp(2rem, 5vw + 0.5rem, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+/* =========================================
+   Flexbox / Grid Helpers
+========================================= */
+.flex         { display: flex; }
+.flex-col     { flex-direction: column; }
+.flex-wrap    { flex-wrap: wrap; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
-.gap-2 { gap: 0.5rem; }
-.gap-4 { gap: 1rem; }
-.gap-6 { gap: 1.5rem; }
+.gap-2  { gap: 0.5rem; }
+.gap-4  { gap: 1rem; }
+.gap-6  { gap: 1.5rem; }
+.w-full { width: 100%; }
 
-/* Components */
-.card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: #D1D5DB;
-}
-
+/* =========================================
+   Buttons
+========================================= */
 .btn-primary {
   background-color: var(--accent-primary);
-  color: white;
+  color: #fff;
   padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
   font-weight: 500;
@@ -144,11 +220,10 @@ code, pre {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  white-space: nowrap;
+  min-height: 40px;
 }
-
-.btn-primary:hover {
-  background-color: var(--accent-hover);
-}
+.btn-primary:hover { background-color: var(--accent-hover); }
 
 .btn-secondary {
   background-color: var(--bg-card);
@@ -162,12 +237,30 @@ code, pre {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  white-space: nowrap;
+  min-height: 40px;
+}
+.btn-secondary:hover { background-color: var(--bg-hover); }
+
+/* Disabled state — both button types */
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
-.btn-secondary:hover {
-  background-color: var(--bg-hover);
+/* Action button rows — wrap naturally, never overflow */
+.toolbar-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
+/* =========================================
+   Form Inputs
+========================================= */
 .input-field {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -176,14 +269,70 @@ code, pre {
   font-size: 0.875rem;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
 }
-
 .input-field:focus {
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 3px var(--accent-light);
 }
 
-/* Category Sidebar */
+/* =========================================
+   Card Components
+========================================= */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: #D1D5DB;
+}
+
+/* Tool cards — horizontal layout in grid */
+.tool-card-hz {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  transition: all 0.2s ease;
+  min-width: 0;
+}
+.tool-card-hz:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #D1D5DB;
+}
+.tool-card-hz > div:last-child {
+  min-width: 0;
+  overflow: hidden;
+}
+.tool-card-hz h4, .tool-card-hz p {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Responsive grid: 1 col → 2 col → auto-fill */
+.tool-grid-hz {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 480px) {
+  .tool-grid-hz {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+/* =========================================
+   Category Sidebar Link
+========================================= */
 .sidebar-link {
   display: flex;
   align-items: center;
@@ -194,46 +343,17 @@ code, pre {
   font-weight: 500;
   transition: background-color 0.2s, color 0.2s;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
 }
+.sidebar-link:hover { background-color: var(--bg-hover); color: var(--text-primary); }
+.sidebar-link.active { background-color: var(--accent-light); color: var(--accent-primary); }
 
-.sidebar-link:hover {
-  background-color: var(--bg-hover);
-  color: var(--text-primary);
-}
-
-.sidebar-link.active {
-  background-color: var(--accent-light);
-  color: var(--accent-primary);
-}
-
-/* Horizontal Tool Cards */
-.tool-card-hz {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  transition: all 0.2s ease;
-}
-
-.tool-card-hz:hover {
-  box-shadow: var(--shadow-sm);
-  border-color: #D1D5DB;
-}
-
-.tool-grid-hz {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-}
-
-/* Workspace */
+/* =========================================
+   Workspace Panels (Editor Layout)
+========================================= */
 .workspace-panel {
   display: flex;
   flex-direction: column;
-  height: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
@@ -251,51 +371,211 @@ code, pre {
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--text-primary);
+  flex-shrink: 0;
 }
 
 .workspace-content {
   flex: 1;
   position: relative;
   display: flex;
+  min-height: 0;
 }
 
 .workspace-content textarea {
   width: 100%;
-  height: 100%;
-  min-height: 400px;
+  min-height: 250px;
   border: none;
-  resize: none;
+  resize: vertical;
   outline: none;
   font-family: var(--font-mono);
   font-size: 0.875rem;
   line-height: 1.6;
   padding: 1rem;
+  /* Transparent so panel bg shows through — but color must be explicit */
   background: transparent;
+  color: var(--text-primary);
+  /* Allow textarea content to scroll internally — NOT the page */
+  overflow: auto;
+  white-space: pre;
+  word-wrap: off;
 }
 
+/* Workspace textarea placeholder */
+.workspace-content textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .workspace-content textarea {
+    min-height: 380px;
+    resize: none;
+  }
+}
+
+/* =========================================
+   Split Workspace (Input | Output)
+   Mobile: stacked
+   Desktop: side-by-side
+========================================= */
 .split-workspace {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .split-workspace {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+    align-items: stretch;
   }
 }
 
-/* Scrollbar for editors */
-textarea::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* =========================================
+   Category Page Layout
+   Mobile: single column
+   Desktop: sidebar + main
+========================================= */
+.category-page-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
-textarea::-webkit-scrollbar-track {
+
+@media (min-width: 900px) {
+  .category-page-layout {
+    flex-direction: row;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+}
+
+.category-sidebar {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .category-sidebar {
+    display: block;
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+/* =========================================
+   Scrollbar styling for editors
+========================================= */
+textarea::-webkit-scrollbar,
+.workspace-content::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+textarea::-webkit-scrollbar-track,
+.workspace-content::-webkit-scrollbar-track {
   background: transparent;
 }
-textarea::-webkit-scrollbar-thumb {
+textarea::-webkit-scrollbar-thumb,
+.workspace-content::-webkit-scrollbar-thumb {
   background-color: #D1D5DB;
   border-radius: 4px;
+}
+body.dark textarea::-webkit-scrollbar-thumb { background-color: #374151; }
+
+/* =========================================
+   Table — internal horizontal scroll
+========================================= */
+.table-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================
+   Navbar — Hamburger responsive behaviour
+   Hidden on desktop (768px+), shown on mobile
+========================================= */
+.navbar-hamburger {
+  display: flex;   /* visible on mobile */
+}
+@media (min-width: 768px) {
+  .navbar-hamburger {
+    display: none !important;  /* fully hidden on desktop */
+  }
+}
+
+/* Mobile menu panel hidden on desktop */
+.navbar-mobile-menu {
+  display: block;
+}
+@media (min-width: 768px) {
+  .navbar-mobile-menu {
+    display: none !important;
+  }
+}
+
+/* =========================================
+   Hero Grid — single col mobile, 2-col desktop
+   Text column left, decorative icons right
+========================================= */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+/* =========================================
+   Desktop UI Restore (Home page only)
+   Preserves mobile layout, targets >=1024px
+========================================= */
+@media (min-width: 1024px) {
+  .hero-section-desktop { padding: 4rem 0 6rem 0 !important; }
+  .responsive-hero-text {
+    font-size: 4rem !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.025em !important;
+  }
+  .hero-desc-desktop {
+    font-size: 1.125rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 2.5rem !important;
+    max-width: 480px !important;
+  }
+  .hero-search-desktop input {
+    padding: 1.25rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+  }
+  .hero-icons-container { height: 400px !important; }
+  
+  .hero-icon-1 { width: 120px !important; height: 120px !important; top: 10% !important; right: 20% !important; }
+  .hero-icon-1 svg { width: 48px !important; height: 48px !important; }
+  
+  .hero-icon-2 { width: 140px !important; height: 140px !important; top: 40% !important; right: 5% !important; }
+  .hero-icon-2 svg { width: 56px !important; height: 56px !important; }
+  
+  .hero-icon-3 { width: 100px !important; height: 100px !important; bottom: 10% !important; right: 35% !important; }
+  .hero-icon-3 span { font-size: 2rem !important; }
+
+  .categories-section-desktop {
+    padding: 4rem 0 !important;
+    top: -2rem !important;
+  }
+  .categories-grid-desktop {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+  .categories-icon-desktop svg { width: 48px !important; height: 48px !important; }
+  .categories-icon-desktop span { font-size: 3rem !important; }
+
+  .popular-section-desktop { padding: 0 0 6rem 0 !important; }
 }

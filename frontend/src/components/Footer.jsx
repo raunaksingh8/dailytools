@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer style={{ backgroundColor: 'var(--bg-card)', borderTop: '1px solid var(--border-color)', padding: '3rem 0', marginTop: 'auto' }}>
-      <div className="container flex justify-between">
+      <div className="container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '2rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '1.25rem', marginBottom: '1rem' }}>
             <span style={{ color: 'var(--accent-primary)' }}>⚡</span>
@@ -14,7 +14,7 @@ const Footer = () => {
             Simple, fast, free tools for developers, creators and everyday work.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '4rem' }}>
+        <div style={{ display: 'flex', gap: '4rem', flexWrap: 'wrap' }}>
           <div>
             <h4 style={{ marginBottom: '1rem' }}>Tools</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', color: 'var(--text-secondary)' }}>

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import ToolLayout from '../../components/ToolLayout';
 import { tools } from '../../data/tools';
 import { diffWords, diffJson } from 'diff';
+import { Copy, Download } from 'lucide-react';
+import { downloadFile } from '../../utils/downloadFile';
+import { useToast } from '../../components/Toast';
 
 export const TextDiffTool = () => {
   const tool = tools.find(t => t.slug === 'text-diff');
@@ -9,14 +12,35 @@ export const TextDiffTool = () => {
   const [textB, setTextB] = useState('');
   const [diffResult, setDiffResult] = useState(null);
 
+  const toast = useToast();
+
   const handleDiff = () => {
     if (!textA && !textB) return;
     const diff = diffWords(textA, textB);
     setDiffResult(diff);
   };
 
+  const handleDownload = () => {
+    if (!diffResult) {
+      toast('Nothing to download. Please compare some text first.');
+      return;
+    }
+    const plain = diffResult.map(p => {
+      if (p.added)   return `[+] ${p.value}`;
+      if (p.removed) return `[-] ${p.value}`;
+      return p.value;
+    }).join('');
+    const ok = downloadFile(plain, 'text-diff.txt', 'text/plain');
+    if (!ok) toast('Nothing to download. Please compare some text first.');
+  };
+
   const toolbarActions = (
-    <button className="btn-primary" onClick={handleDiff}>Compare Text</button>
+    <>
+      <button className="btn-primary" onClick={handleDiff}>Compare Text</button>
+      <button className="btn-secondary" onClick={handleDownload} disabled={!diffResult} aria-label="Download diff report">
+        <Download size={15} /> Download Report
+      </button>
+    </>
   );
 
   return (

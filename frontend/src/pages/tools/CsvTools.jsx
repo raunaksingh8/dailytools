@@ -3,11 +3,14 @@ import ToolLayout from '../../components/ToolLayout';
 import { tools } from '../../data/tools';
 import Papa from 'papaparse';
 import { ArrowRight, Copy, Trash2, Download } from 'lucide-react';
+import { downloadFile } from '../../utils/downloadFile';
+import { useToast } from '../../components/Toast';
 
 export const CsvToJsonTool = () => {
   const tool = tools.find(t => t.slug === 'csv-to-json');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const toast = useToast();
 
   const handleConvert = () => {
     if (!input) return;
@@ -21,13 +24,8 @@ export const CsvToJsonTool = () => {
   };
 
   const handleDownload = () => {
-    if (!output) return;
-    const blob = new Blob([output], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'converted.json';
-    a.click();
+    const ok = downloadFile(output, 'converted.json', 'application/json');
+    if (!ok) toast('Nothing to download. Please convert some CSV first.');
   };
 
   const toolbarActions = (
@@ -64,6 +62,7 @@ export const JsonToCsvTool = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
+  const toast = useToast();
 
   const handleConvert = () => {
     if (!input) return;
@@ -78,13 +77,8 @@ export const JsonToCsvTool = () => {
   };
 
   const handleDownload = () => {
-    if (!output) return;
-    const blob = new Blob([output], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'converted.csv';
-    a.click();
+    const ok = downloadFile(output, 'converted.csv', 'text/csv');
+    if (!ok) toast('Nothing to download. Please convert some JSON first.');
   };
 
   const toolbarActions = (
@@ -152,17 +146,17 @@ export const CsvViewerTool = () => {
               <span>Data Viewer ({data.length} rows)</span>
               <button onClick={() => setData([])} className="text-secondary">Close</button>
             </div>
-            <div className="workspace-content" style={{ overflow: 'auto', padding: 0 }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
+            <div className="workspace-content table-scroll-wrapper" style={{ overflow: 'auto', padding: 0 }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', minWidth: '400px' }}>
                 <thead style={{ backgroundColor: 'var(--bg-hover)', position: 'sticky', top: 0 }}>
                   <tr>
-                    {headers.map((h, i) => <th key={i} style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '1px solid var(--border-color)' }}>{h}</th>)}
+                    {headers.map((h, i) => <th key={i} style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '1px solid var(--border-color)', whiteSpace: 'nowrap' }}>{h}</th>)}
                   </tr>
                 </thead>
                 <tbody>
                   {data.slice(0, 100).map((row, i) => (
                     <tr key={i}>
-                      {headers.map((h, j) => <td key={j} style={{ padding: '0.75rem', borderBottom: '1px solid var(--border-color)' }}>{row[h]}</td>)}
+                      {headers.map((h, j) => <td key={j} style={{ padding: '0.75rem', borderBottom: '1px solid var(--border-color)', whiteSpace: 'nowrap', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row[h]}</td>)}
                     </tr>
                   ))}
                 </tbody>
