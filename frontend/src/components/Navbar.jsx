@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Search, Sun, Moon, Menu, X } from 'lucide-react';
+import { Search, Sun, Moon, Menu, X, Zap } from 'lucide-react';
 import '../styles/global.css';
 import '../styles/navbar.css';
 
@@ -68,7 +68,7 @@ const Navbar = () => {
         <div className="navbar-left">
           <Link to="/" className="navbar-brand">
             <div className="navbar-logo-icon">
-              <span className="navbar-logo-star">★</span>
+              <span className="navbar-logo-star"><Zap size={18} strokeWidth={2.5} /></span>
             </div>
             DailyTools
           </Link>
