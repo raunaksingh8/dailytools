@@ -1,0 +1,62 @@
+/* =========================================
+   CSV Tools Styles
+========================================= */
+
+.csv-workspace {
+  height: 100%;
+}
+
+.csv-content-no-pad {
+  padding: 0;
+}
+
+.csv-output-content {
+  padding: 0;
+  background-color: var(--bg-main);
+}
+
+.csv-error-text {
+  color: var(--error);
+}
+
+/* CSV Viewer */
+.csv-viewer-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  min-width: 400px;
+}
+
+.csv-viewer-thead {
+  background-color: var(--bg-hover);
+  position: sticky;
+  top: 0;
+}
+
+.csv-viewer-th {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.csv-viewer-td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.csv-viewer-footer-msg {
+  padding: 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.csv-viewer-content {
+  overflow: auto;
+  padding: 0;
+}
+.csv-workspace-panel { flex: 1; }

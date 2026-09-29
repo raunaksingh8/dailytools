@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ToolLayout from '../../components/ToolLayout';
 import { tools } from '../../data/tools';
 import { Copy, Trash2 } from 'lucide-react';
+import '../../styles/word-counter.css';
 
 const WordCounter = () => {
   const tool = tools.find(t => t.slug === 'word-counter');
@@ -49,51 +50,37 @@ const WordCounter = () => {
 
   return (
     <ToolLayout tool={tool} toolbarActions={toolbarActions}>
-      <div className="workspace-panel" style={{ height: 'auto', minHeight: '400px' }}>
-        <div className="workspace-content" style={{ padding: 0 }}>
+      <div className="workspace-panel word-counter-panel">
+        <div className="workspace-content word-counter-content">
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Type or paste your text here..."
-            style={{ 
-              fontFamily: 'var(--font-sans)', 
-              fontSize: '1rem',
-              padding: '1.5rem',
-              border: 'none',
-              minHeight: '300px'
-            }}
+            className="word-counter-textarea"
           />
         </div>
         
         {/* Stats Row */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', 
-          gap: '1rem', 
-          borderTop: '1px solid var(--border-color)',
-          padding: '1.5rem',
-          backgroundColor: 'var(--bg-hover)',
-          textAlign: 'center'
-        }}>
+        <div className="word-counter-stats-row">
           <div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>{stats.words}</div>
-            <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Words</div>
+            <div className="word-counter-stat-value">{stats.words}</div>
+            <div className="word-counter-stat-label">Words</div>
           </div>
           <div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>{stats.characters}</div>
-            <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Characters</div>
+            <div className="word-counter-stat-value">{stats.characters}</div>
+            <div className="word-counter-stat-label">Characters</div>
           </div>
           <div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>{stats.sentences}</div>
-            <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Sentences</div>
+            <div className="word-counter-stat-value">{stats.sentences}</div>
+            <div className="word-counter-stat-label">Sentences</div>
           </div>
           <div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>{stats.paragraphs}</div>
-            <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Paragraphs</div>
+            <div className="word-counter-stat-value">{stats.paragraphs}</div>
+            <div className="word-counter-stat-label">Paragraphs</div>
           </div>
           <div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>{stats.readingTime} min</div>
-            <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Reading Time</div>
+            <div className="word-counter-stat-value">{stats.readingTime} min</div>
+            <div className="word-counter-stat-label">Reading Time</div>
           </div>
         </div>
       </div>

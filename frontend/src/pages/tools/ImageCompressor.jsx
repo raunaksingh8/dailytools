@@ -5,6 +5,8 @@ import { UploadCloud, ArrowRight, Download, Image as ImageIcon } from 'lucide-re
 import imageCompression from 'browser-image-compression';
 import { downloadBlob } from '../../utils/downloadFile';
 import { useToast } from '../../components/Toast';
+import '../../styles/file-upload.css';
+import '../../styles/image-compressor.css';
 
 const ImageCompressor = () => {
   const tool = tools.find(t => t.slug === 'image-compressor');
@@ -100,65 +102,55 @@ const ImageCompressor = () => {
   return (
     <ToolLayout tool={tool}>
       {!originalUrl ? (
-        <div 
-          style={{
-            border: '2px dashed var(--accent-primary)',
-            backgroundColor: 'var(--accent-light)',
-            borderRadius: 'var(--radius-xl)',
-            padding: '4rem 2rem',
-            textAlign: 'center',
-            cursor: 'pointer',
-            position: 'relative'
-          }}
-        >
-          <input 
-            type="file" 
-            accept="image/jpeg, image/png, image/webp" 
+        <div className="file-upload-zone">
+          <input
+            type="file"
+            accept="image/jpeg, image/png, image/webp"
             onChange={handleFileUpload}
-            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
+            className="file-upload-input"
           />
-          <UploadCloud size={48} style={{ color: 'var(--accent-primary)', margin: '0 auto 1rem auto' }} />
-          <h3 style={{ marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>Drop your image here <br/> or click to browse</h3>
-          <p className="text-secondary" style={{ fontSize: '0.875rem' }}>Supports JPG, PNG, WebP • Max 10MB</p>
+          <UploadCloud size={48} className="file-upload-icon" />
+          <h3 className="file-upload-title">Drop your image here <br/> or click to browse</h3>
+          <p className="text-secondary file-upload-desc">Supports JPG, PNG, WebP • Max 10MB</p>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="compressor-layout">
+
+          <div className="compressor-preview-row">
             {/* Original */}
-            <div>
-              <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Original Image</h4>
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ width: '160px', height: '120px', backgroundColor: 'var(--bg-hover)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
-                  <img src={originalUrl} alt="Original" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="compressor-preview-col">
+              <h4>Original Image</h4>
+              <div className="compressor-preview-pair">
+                <div className="compressor-thumb">
+                  <img src={originalUrl} alt="Original" />
                 </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <span style={{ fontSize: '0.75rem' }}>File size</span>
-                  <span style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '1.25rem' }}>{formatSize(originalDetails?.size || 0)}</span>
+                <div className="compressor-meta">
+                  <span className="compressor-meta-label">File size</span>
+                  <span className="compressor-meta-size">{formatSize(originalDetails?.size || 0)}</span>
                   <span>Dimensions<br/>{originalDetails?.dimensions}</span>
                   <span>Format<br/>{originalDetails?.format}</span>
                 </div>
               </div>
             </div>
-            
-            <ArrowRight size={32} style={{ color: 'var(--accent-primary)' }} className="hidden md-block" />
-            
+
+            <ArrowRight size={32} className="image-convert-arrow hidden md-block" />
+
             {/* Compressed */}
-            <div>
-              <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Compressed Image</h4>
+            <div className="compressor-preview-col">
+              <h4>Compressed Image</h4>
               {compressedUrl ? (
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                  <div style={{ width: '160px', height: '120px', backgroundColor: 'var(--bg-hover)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
-                    <img src={compressedUrl} alt="Compressed" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div className="compressor-preview-pair">
+                  <div className="compressor-thumb">
+                    <img src={compressedUrl} alt="Compressed" />
                   </div>
-                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div className="compressor-meta">
+                    <div className="compressor-meta-row">
                       <div>
-                        <span style={{ fontSize: '0.75rem' }}>File size</span>
-                        <div style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '1.25rem' }}>{formatSize(compressedDetails?.size || 0)}</div>
+                        <span className="compressor-meta-label">File size</span>
+                        <div className="compressor-meta-size">{formatSize(compressedDetails?.size || 0)}</div>
                       </div>
                       {calculateSavings() > 0 && (
-                        <span style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success)', padding: '0.25rem 0.5rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 600 }}>
+                        <span className="compressor-savings-badge">
                           {calculateSavings()}% smaller
                         </span>
                       )}
@@ -168,50 +160,50 @@ const ImageCompressor = () => {
                   </div>
                 </div>
               ) : (
-                <div style={{ width: '160px', height: '120px', border: '2px dashed var(--border-color)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
+                <div className="compressor-thumb-placeholder">
                   <ImageIcon size={32} opacity={0.5} />
                 </div>
               )}
             </div>
           </div>
-          
-          <div style={{ borderTop: '1px solid var(--border-color)', margin: '1rem 0' }}></div>
-          
+
+          <div className="compressor-divider"></div>
+
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: 500 }}>
+            <div className="compressor-level-header">
               <span>Compression Level</span>
             </div>
-            <input 
-              type="range" 
-              min="0.1" 
-              max="2" 
-              step="0.1" 
-              value={compressionLevel} 
+            <input
+              type="range"
+              min="0.1"
+              max="2"
+              step="0.1"
+              value={compressionLevel}
               onChange={(e) => {
                 setCompressionLevel(parseFloat(e.target.value));
                 setCompressedUrl('');
               }}
-              style={{ width: '100%', accentColor: 'var(--accent-primary)' }}
+              className="compressor-level-range"
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+            <div className="compressor-level-labels">
               <span>Low (Bigger file)</span>
               <span>Medium (Balanced)</span>
               <span>High (Smaller file)</span>
             </div>
           </div>
-          
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-            <button className="btn-primary" onClick={handleCompress} disabled={isCompressing} style={{ minWidth: '150px' }}>
+
+          <div className="compressor-actions">
+            <button className="btn-primary compressor-btn-wide" onClick={handleCompress} disabled={isCompressing}>
               {isCompressing ? 'Compressing...' : 'Compress Image'}
             </button>
-            <button className="btn-secondary" onClick={handleDownload} disabled={!compressedUrl} style={{ minWidth: '150px' }}>
+            <button className="btn-secondary compressor-btn-wide" onClick={handleDownload} disabled={!compressedUrl}>
               <Download size={16} /> Download Image
             </button>
-            <button className="btn-secondary" onClick={() => setOriginalUrl('')} style={{ padding: '0.5rem' }}>
+            <button className="btn-secondary compressor-btn-icon" onClick={() => setOriginalUrl('')}>
               Reset
             </button>
           </div>
-          
+
         </div>
       )}
     </ToolLayout>

@@ -5,6 +5,9 @@ import { PDFDocument } from 'pdf-lib';
 import { UploadCloud, Download } from 'lucide-react';
 import { downloadBlob } from '../../utils/downloadFile';
 import { useToast } from '../../components/Toast';
+import '../../styles/file-upload.css';
+import '../../styles/pdf-tools.css';
+import '../../styles/pdf-tools.css';
 
 /* ─── PDF Merge ─── */
 export const PdfMergeTool = () => {
@@ -56,40 +59,40 @@ export const PdfMergeTool = () => {
 
   return (
     <ToolLayout tool={tool}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div className="tool-section-layout">
         {/* Upload area */}
-        <div style={{ border: '2px dashed var(--accent-primary)', backgroundColor: 'var(--accent-light)', borderRadius: 'var(--radius-xl)', padding: '2rem', textAlign: 'center', position: 'relative' }}>
+        <div className="file-upload-zone small-padding">
           <input
             type="file"
             multiple
             accept="application/pdf"
             onChange={handleFiles}
-            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
+            className="file-upload-input"
             aria-label="Select PDF files to merge"
           />
-          <UploadCloud size={32} style={{ color: 'var(--accent-primary)', margin: '0 auto 1rem auto' }} />
-          <h3 style={{ color: 'var(--accent-primary)' }}>
+          <UploadCloud size={32} className="file-upload-icon" />
+          <h3 className="file-upload-title">
             {files.length > 0 ? `${files.length} file(s) selected — click to add more` : 'Select PDFs to Merge'}
           </h3>
-          <p className="text-secondary" style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>Click or drag PDF files here</p>
+          <p className="text-secondary file-upload-desc">Click or drag PDF files here</p>
         </div>
 
         {/* File list */}
         {files.length > 0 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div className="file-list-container">
             <h4>Files to Merge ({files.length}):</h4>
             {files.map((f, i) => (
-              <div key={i} style={{ padding: '0.5rem 1rem', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div key={i} className="file-list-item">
                 <span>{i + 1}. {f.name}</span>
-                <span className="text-secondary" style={{ fontSize: '0.8rem' }}>{(f.size / 1024).toFixed(0)} KB</span>
+                <span className="text-secondary file-list-size">{(f.size / 1024).toFixed(0)} KB</span>
               </div>
             ))}
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+            <div className="file-actions-row">
               <button className="btn-primary" onClick={handleMerge} disabled={isProcessing}>
                 {isProcessing ? 'Merging…' : 'Merge PDFs'}
               </button>
               {mergedBlob && (
-                <button className="btn-primary" onClick={handleDownload} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                <button className="btn-primary btn-icon-label" onClick={handleDownload}>
                   <Download size={16} /> Download Merged PDF
                 </button>
               )}
@@ -100,9 +103,9 @@ export const PdfMergeTool = () => {
 
         {/* Success state */}
         {mergedBlob && (
-          <div style={{ padding: '1.5rem', backgroundColor: 'var(--success-bg)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-            <span style={{ color: 'var(--success)', fontWeight: 600 }}>✓ Merge complete! {files.length} PDFs merged.</span>
-            <button className="btn-primary" onClick={handleDownload} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div className="tool-success-alert">
+            <span className="tool-success-text">✓ Merge complete! {files.length} PDFs merged.</span>
+            <button className="btn-primary btn-icon-label" onClick={handleDownload}>
               <Download size={16} /> Download
             </button>
           </div>
@@ -156,24 +159,24 @@ export const PdfSplitTool = () => {
 
   return (
     <ToolLayout tool={tool}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div className="tool-section-layout">
         {!file ? (
-          <div style={{ border: '2px dashed var(--accent-primary)', backgroundColor: 'var(--accent-light)', borderRadius: 'var(--radius-xl)', padding: '4rem 2rem', textAlign: 'center', position: 'relative' }}>
+          <div className="file-upload-zone">
             <input
               type="file"
               accept="application/pdf"
               onChange={handleFile}
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
+              className="file-upload-input"
               aria-label="Select a PDF to split"
             />
-            <UploadCloud size={48} style={{ color: 'var(--accent-primary)', margin: '0 auto 1rem auto' }} />
-            <h3 style={{ color: 'var(--accent-primary)' }}>Select PDF to Split</h3>
-            <p className="text-secondary" style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>Each page will become a separate PDF</p>
+            <UploadCloud size={48} className="file-upload-icon" />
+            <h3 className="file-upload-title">Select PDF to Split</h3>
+            <p className="text-secondary file-upload-desc">Each page will become a separate PDF</p>
           </div>
         ) : (
-          <div>
-            <h3 style={{ marginBottom: '1rem' }}>Selected: {file.name}</h3>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <div className="file-list-container">
+            <h3 className="pdf-tool-heading">Selected: {file.name}</h3>
+            <div className="file-actions-row">
               <button className="btn-primary" onClick={handleSplit} disabled={isProcessing}>
                 {isProcessing ? 'Splitting…' : 'Split into Single Pages'}
               </button>
@@ -184,17 +187,16 @@ export const PdfSplitTool = () => {
 
         {splitBlobs.length > 0 && (
           <div>
-            <h3 style={{ marginBottom: '1rem' }}>Split Pages ({splitBlobs.length})</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '0.75rem' }}>
+            <h3 className="pdf-tool-heading">Split Pages ({splitBlobs.length})</h3>
+            <div className="split-items-grid">
               {splitBlobs.map(item => (
                 <button
                   key={item.page}
-                  className="btn-secondary"
+                  className="btn-secondary split-item-card"
                   onClick={() => handlePageDownload(item)}
-                  style={{ flexDirection: 'column', padding: '1rem 0.5rem', minHeight: '80px' }}
                   aria-label={`Download page ${item.page}`}
                 >
-                  <Download size={20} style={{ marginBottom: '0.5rem' }} />
+                  <Download size={20} className="pdf-tool-icon-spacing" />
                   Page {item.page}
                 </button>
               ))}

@@ -1,0 +1,42 @@
+/* =========================================
+   Word Counter Styles
+========================================= */
+
+.word-counter-panel {
+  height: auto;
+  min-height: 400px;
+}
+
+.word-counter-content {
+  padding: 0;
+}
+
+.word-counter-textarea {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  padding: 1.5rem;
+  border: none;
+  min-height: 300px;
+}
+
+/* Stats Row */
+.word-counter-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem;
+  background-color: var(--bg-hover);
+  text-align: center;
+}
+
+.word-counter-stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.word-counter-stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}

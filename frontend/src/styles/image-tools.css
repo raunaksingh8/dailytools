@@ -1,0 +1,137 @@
+/* =========================================
+   Image Tool Styles (Converter + Compressor)
+========================================= */
+
+/* Preview panels wrapper */
+.image-tool-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.image-preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-preview-col h4 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.image-preview-box {
+  width: 100%;
+  max-width: 300px;
+  background-color: var(--bg-hover);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.image-preview-box img {
+  width: 100%;
+  display: block;
+}
+
+.image-placeholder-box {
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.image-convert-arrow {
+  color: var(--accent-primary);
+}
+
+.image-tool-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.image-tool-btn-wide {
+  min-width: 150px;
+}
+
+.image-tool-btn-icon {
+  padding: 0.5rem;
+}
+
+/* =========================================
+   Image Compressor Specific
+========================================= */
+
+.compressor-settings-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}
+
+.compressor-quality-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.compressor-quality-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.compressor-quality-row input[type="range"] {
+  width: 200px;
+  background: transparent;
+}
+
+.compressor-quality-value {
+  font-weight: 600;
+  min-width: 2.5rem;
+  color: var(--text-primary);
+}
+
+.compressor-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .compressor-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.compressor-stat-card {
+  background-color: var(--bg-hover);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.compressor-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.compressor-stat-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.compressor-stat-value.savings {
+  color: var(--success);
+}

@@ -1,0 +1,62 @@
+/* =========================================
+   Text & JSON Diff Styles
+========================================= */
+
+.diff-workspace-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+}
+
+.diff-workspace-content {
+  padding: 0;
+}
+
+.diff-result-panel {
+  height: 300px;
+}
+
+.diff-result-content {
+  padding: 1.5rem;
+  overflow: auto;
+  background-color: var(--bg-hover);
+  white-space: pre-wrap;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+
+.diff-result-content-json {
+  padding: 1.5rem;
+  overflow: auto;
+  background-color: var(--bg-hover);
+  white-space: pre-wrap;
+}
+
+.diff-part-added {
+  color: var(--success);
+  background-color: var(--success-bg);
+}
+
+.diff-part-removed {
+  color: var(--error);
+  background-color: var(--error-bg);
+  text-decoration: line-through;
+}
+
+.diff-part-removed-json {
+  color: var(--error);
+  background-color: var(--error-bg);
+}
+
+.diff-part-unchanged {
+  color: inherit;
+  background-color: transparent;
+}
+
+.diff-error-msg {
+  color: var(--error);
+  padding: 1rem;
+  background-color: var(--error-bg);
+  border-radius: var(--radius-md);
+}

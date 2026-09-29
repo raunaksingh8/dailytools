@@ -1,0 +1,72 @@
+/* =========================================
+   JSON Formatter Styles
+========================================= */
+
+.json-formatter-workspace {
+  height: 100%;
+}
+
+.json-formatter-clear-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.json-formatter-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--accent-primary);
+  color: white;
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.json-formatter-panel-content {
+  padding: 0;
+}
+
+.json-formatter-output-content {
+  padding: 0;
+  background-color: var(--bg-main);
+}
+
+.json-formatter-status {
+  margin-top: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.json-formatter-status.success {
+  background-color: var(--success-bg);
+  color: var(--success);
+}
+
+.json-formatter-status.error {
+  background-color: var(--error-bg);
+  color: var(--error);
+}
+
+.json-formatter-status-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.json-formatter-status-meta {
+  font-size: 0.8125rem;
+}

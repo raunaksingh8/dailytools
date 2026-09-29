@@ -4,6 +4,8 @@ import { tools } from '../../data/tools';
 import { UploadCloud, ArrowRight, Download, Image as ImageIcon } from 'lucide-react';
 import { downloadBlob } from '../../utils/downloadFile';
 import { useToast } from '../../components/Toast';
+import '../../styles/file-upload.css';
+import '../../styles/image-tools.css';
 
 export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
   const tool = tools.find(t => t.slug === slug);
@@ -60,46 +62,45 @@ export const GenericImageConverter = ({ slug, targetFormat, formatName }) => {
   return (
     <ToolLayout tool={tool}>
       {!originalUrl ? (
-        <div style={{ border: '2px dashed var(--accent-primary)', backgroundColor: 'var(--accent-light)', borderRadius: 'var(--radius-xl)', padding: '4rem 2rem', textAlign: 'center', position: 'relative' }}>
-          <input type="file" accept="image/*" onChange={handleFileUpload} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
-          <UploadCloud size={48} style={{ color: 'var(--accent-primary)', margin: '0 auto 1rem auto' }} />
-          <h3 style={{ color: 'var(--accent-primary)' }}>Drop your image here <br/> or click to browse</h3>
+        <div className="file-upload-zone">
+          <input type="file" accept="image/*" onChange={handleFileUpload} className="file-upload-input" />
+          <UploadCloud size={48} className="file-upload-icon" />
+          <h3 className="file-upload-title">Drop your image here <br/> or click to browse</h3>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}>
-            
-            <div>
-              <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Original Image</h4>
-              <div style={{ width: '100%', maxWidth: '300px', backgroundColor: 'var(--bg-hover)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
-                <img src={originalUrl} alt="Original" style={{ width: '100%', display: 'block' }} />
+        <div className="image-tool-layout">
+          <div className="image-preview-row">
+            <div className="image-preview-col">
+              <h4>Original Image</h4>
+              <div className="image-preview-box">
+                <img src={originalUrl} alt="Original" />
               </div>
             </div>
-            
-            <ArrowRight size={32} style={{ color: 'var(--accent-primary)' }} className="hidden md-block" />
-            
-            <div>
-              <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Converted to {formatName}</h4>
+
+            <ArrowRight size={32} className="image-convert-arrow hidden md-block" />
+
+            <div className="image-preview-col">
+              <h4>Converted to {formatName}</h4>
               {convertedUrl ? (
-                <div style={{ width: '100%', maxWidth: '300px', backgroundColor: 'var(--bg-hover)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
-                  <img src={convertedUrl} alt="Converted" style={{ width: '100%', display: 'block' }} />
+                <div className="image-preview-box">
+                  <img src={convertedUrl} alt="Converted" />
                 </div>
               ) : (
-                <div style={{ width: '100%', maxWidth: '300px', height: '200px', border: '2px dashed var(--border-color)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
+                <div className="image-placeholder-box">
                   <ImageIcon size={32} opacity={0.5} />
                 </div>
               )}
             </div>
           </div>
-          
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-            <button className="btn-primary" onClick={handleConvert} disabled={isProcessing} style={{ minWidth: '150px' }}>
+
+          <div className="image-tool-actions">
+            <button className="btn-primary image-tool-btn-wide" onClick={handleConvert} disabled={isProcessing}>
               {isProcessing ? 'Converting...' : `Convert to ${formatName}`}
             </button>
-            <button className="btn-secondary" onClick={handleDownload} disabled={!convertedUrl} style={{ minWidth: '150px' }}>
+            <button className="btn-secondary image-tool-btn-wide" onClick={handleDownload} disabled={!convertedUrl}>
               <Download size={16} /> Download
             </button>
-            <button className="btn-secondary" onClick={() => { setOriginalUrl(''); setConvertedUrl(''); }} style={{ padding: '0.5rem' }}>
+            <button className="btn-secondary image-tool-btn-icon" onClick={() => { setOriginalUrl(''); setConvertedUrl(''); }}>
               Reset
             </button>
           </div>

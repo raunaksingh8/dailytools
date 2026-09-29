@@ -5,6 +5,8 @@ import Papa from 'papaparse';
 import { ArrowRight, Copy, Trash2, Download } from 'lucide-react';
 import { downloadFile } from '../../utils/downloadFile';
 import { useToast } from '../../components/Toast';
+import '../../styles/csv-tools.css';
+import '../../styles/file-upload.css';
 
 export const CsvToJsonTool = () => {
   const tool = tools.find(t => t.slug === 'csv-to-json');
@@ -39,16 +41,16 @@ export const CsvToJsonTool = () => {
 
   return (
     <ToolLayout tool={tool} toolbarActions={toolbarActions}>
-      <div className="split-workspace" style={{ height: '100%' }}>
+      <div className="split-workspace csv-workspace">
         <div className="workspace-panel">
           <div className="workspace-header"><span>CSV Input</span></div>
-          <div className="workspace-content" style={{ padding: 0 }}>
+          <div className="workspace-content csv-content-no-pad">
             <textarea value={input} onChange={(e) => setInput(e.target.value)} placeholder="Paste CSV here (with headers)..." spellCheck="false" />
           </div>
         </div>
         <div className="workspace-panel">
           <div className="workspace-header"><span>JSON Output</span></div>
-          <div className="workspace-content" style={{ padding: 0, backgroundColor: 'var(--bg-main)' }}>
+          <div className="workspace-content csv-output-content">
             <textarea value={output} readOnly placeholder="Result will appear here..." spellCheck="false" />
           </div>
         </div>
@@ -92,19 +94,19 @@ export const JsonToCsvTool = () => {
 
   return (
     <ToolLayout tool={tool} toolbarActions={toolbarActions}>
-      <div className="split-workspace" style={{ height: '100%' }}>
+      <div className="split-workspace csv-workspace">
         <div className="workspace-panel">
           <div className="workspace-header"><span>JSON Input</span></div>
-          <div className="workspace-content" style={{ padding: 0 }}>
+          <div className="workspace-content csv-content-no-pad">
             <textarea value={input} onChange={(e) => setInput(e.target.value)} placeholder="Paste JSON array here..." spellCheck="false" />
           </div>
         </div>
         <div className="workspace-panel">
           <div className="workspace-header">
             <span>CSV Output</span>
-            {error && <span style={{ color: 'var(--error)' }}>{error}</span>}
+            {error && <span className="csv-error-text">{error}</span>}
           </div>
-          <div className="workspace-content" style={{ padding: 0, backgroundColor: 'var(--bg-main)' }}>
+          <div className="workspace-content csv-output-content">
             <textarea value={output} readOnly placeholder="Result will appear here..." spellCheck="false" />
           </div>
         </div>
@@ -134,34 +136,34 @@ export const CsvViewerTool = () => {
 
   return (
     <ToolLayout tool={tool}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', height: '100%' }}>
+      <div className="tool-section-layout">
         {data.length === 0 ? (
-          <div style={{ border: '2px dashed var(--accent-primary)', backgroundColor: 'var(--accent-light)', borderRadius: 'var(--radius-xl)', padding: '4rem 2rem', textAlign: 'center', position: 'relative' }}>
-            <input type="file" accept=".csv" onChange={handleFile} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
-            <h3 style={{ color: 'var(--accent-primary)' }}>Select CSV to View</h3>
+          <div className="file-upload-zone">
+            <input type="file" accept=".csv" onChange={handleFile} className="file-upload-input" />
+            <h3 className="file-upload-title">Select CSV to View</h3>
           </div>
         ) : (
-          <div className="workspace-panel" style={{ flex: 1 }}>
+          <div className="workspace-panel csv-workspace-panel">
             <div className="workspace-header">
               <span>Data Viewer ({data.length} rows)</span>
               <button onClick={() => setData([])} className="text-secondary">Close</button>
             </div>
-            <div className="workspace-content table-scroll-wrapper" style={{ overflow: 'auto', padding: 0 }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', minWidth: '400px' }}>
-                <thead style={{ backgroundColor: 'var(--bg-hover)', position: 'sticky', top: 0 }}>
+            <div className="workspace-content csv-viewer-content table-scroll-wrapper">
+              <table className="csv-viewer-table">
+                <thead className="csv-viewer-thead">
                   <tr>
-                    {headers.map((h, i) => <th key={i} style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '1px solid var(--border-color)', whiteSpace: 'nowrap' }}>{h}</th>)}
+                    {headers.map((h, i) => <th key={i} className="csv-viewer-th">{h}</th>)}
                   </tr>
                 </thead>
                 <tbody>
                   {data.slice(0, 100).map((row, i) => (
                     <tr key={i}>
-                      {headers.map((h, j) => <td key={j} style={{ padding: '0.75rem', borderBottom: '1px solid var(--border-color)', whiteSpace: 'nowrap', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row[h]}</td>)}
+                      {headers.map((h, j) => <td key={j} className="csv-viewer-td">{row[h]}</td>)}
                     </tr>
                   ))}
                 </tbody>
               </table>
-              {data.length > 100 && <div style={{ padding: '1rem', textAlign: 'center', color: 'var(--text-secondary)' }}>Showing first 100 rows</div>}
+              {data.length > 100 && <div className="csv-viewer-footer-msg">Showing first 100 rows</div>}
             </div>
           </div>
         )}

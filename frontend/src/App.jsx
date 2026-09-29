@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './styles/app.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ToastProvider } from './components/Toast';
@@ -34,9 +35,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <ToastProvider />
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg-main)' }}>
+      <div className="app-shell">
         <Navbar />
-        <main style={{ flex: 1 }}>
+        <main className="app-main">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/developer" element={<Developer />} />
@@ -98,9 +99,9 @@ const App = () => {
 
             {/* 404 */}
             <Route path="*" element={
-              <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>
+              <div className="container not-found-page">
                 <h2>404 - Not Found</h2>
-                <p className="text-secondary" style={{ marginTop: '1rem' }}>The page you are looking for doesn't exist.</p>
+                <p className="text-secondary not-found-message">The page you are looking for doesn't exist.</p>
               </div>
             } />
           </Routes>

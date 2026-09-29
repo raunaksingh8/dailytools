@@ -4,6 +4,7 @@ import { tools } from '../data/tools';
 import { Copy, Trash2, ArrowRight, Download } from 'lucide-react';
 import { downloadFile } from '../utils/downloadFile';
 import { useToast } from './Toast';
+import '../styles/text-conversion-tool.css';
 
 /**
  * Generic two-panel (Input → Output) conversion tool.
@@ -94,7 +95,7 @@ export const TextConversionTool = ({
           <div className="workspace-header">
             <span>Input</span>
           </div>
-          <div className="workspace-content" style={{ padding: 0 }}>
+          <div className="workspace-content text-conversion-content">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -109,9 +110,9 @@ export const TextConversionTool = ({
         <div className="workspace-panel">
           <div className="workspace-header">
             <span>Output</span>
-            {error && <span style={{ color: 'var(--error)', fontSize: '0.8125rem', fontWeight: 400 }}>{error}</span>}
+            {error && <span className="text-conversion-error">{error}</span>}
           </div>
-          <div className="workspace-content" style={{ padding: 0, backgroundColor: 'var(--bg-main)' }}>
+          <div className="workspace-content text-conversion-output-content">
             <textarea
               value={output}
               readOnly

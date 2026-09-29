@@ -5,6 +5,8 @@ import { PDFDocument, degrees } from 'pdf-lib';
 import { UploadCloud, Download, RotateCw } from 'lucide-react';
 import { downloadBlob } from '../../utils/downloadFile';
 import { useToast } from '../../components/Toast';
+import '../../styles/file-upload.css';
+import '../../styles/pdf-tools.css';
 
 export const PdfRotateTool = () => {
   const tool = tools.find(t => t.slug === 'rotate-pdf');
@@ -50,29 +52,29 @@ export const PdfRotateTool = () => {
 
   return (
     <ToolLayout tool={tool}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div className="tool-section-layout">
         {!file ? (
-          <div style={{ border: '2px dashed var(--accent-primary)', backgroundColor: 'var(--accent-light)', borderRadius: 'var(--radius-xl)', padding: '4rem 2rem', textAlign: 'center', position: 'relative' }}>
-            <input type="file" accept="application/pdf" onChange={handleFile} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
-            <UploadCloud size={48} style={{ color: 'var(--accent-primary)', margin: '0 auto 1rem auto' }} />
-            <h3 style={{ color: 'var(--accent-primary)' }}>Select PDF to Rotate</h3>
+          <div className="file-upload-zone">
+            <input type="file" accept="application/pdf" onChange={handleFile} className="file-upload-input" />
+            <UploadCloud size={48} className="file-upload-icon" />
+            <h3 className="file-upload-title">Select PDF to Rotate</h3>
           </div>
         ) : (
-          <div>
-            <h3 style={{ marginBottom: '1rem' }}>Selected: {file.name}</h3>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+          <div className="file-list-container">
+            <h3 className="pdf-tool-heading">Selected: {file.name}</h3>
+            <div className="file-actions-row">
               <button className="btn-primary" onClick={handleRotate} disabled={isProcessing}>
                 <RotateCw size={16} /> {isProcessing ? 'Rotating...' : 'Rotate All Pages 90°'}
               </button>
-              <button className="btn-secondary" onClick={() => { setFile(null); setRotatedUrl(''); }}>Clear</button>
+              <button className="btn-secondary" onClick={() => { setFile(null); setRotatedBlob(null); }}>Clear</button>
             </div>
           </div>
         )}
 
         {rotatedBlob && (
-          <div style={{ marginTop: '2rem', padding: '1.5rem 2rem', backgroundColor: 'var(--success-bg)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-            <span style={{ color: 'var(--success)', fontWeight: 600 }}>✓ Rotation complete!</span>
-            <button className="btn-primary" onClick={handleDownload} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div className="tool-success-alert">
+            <span className="tool-success-text">✓ Rotation complete!</span>
+            <button className="btn-primary btn-icon-label" onClick={handleDownload}>
               <Download size={16} /> Download Rotated PDF
             </button>
           </div>

@@ -1,0 +1,18 @@
+/* =========================================
+   Text Conversion Tool Styles
+========================================= */
+
+.text-conversion-content {
+  padding: 0;
+}
+
+.text-conversion-output-content {
+  padding: 0;
+  background-color: var(--bg-main);
+}
+
+.text-conversion-error {
+  color: var(--error);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}

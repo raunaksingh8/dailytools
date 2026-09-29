@@ -4,6 +4,7 @@ import { tools } from '../../data/tools';
 import { Copy, Download, Trash2, CheckCircle, XCircle } from 'lucide-react';
 import { downloadFile } from '../../utils/downloadFile';
 import { useToast } from '../../components/Toast';
+import '../../styles/json-formatter.css';
 
 const JsonFormatter = () => {
   const tool = tools.find(t => t.slug === 'json-formatter');
@@ -65,7 +66,7 @@ const JsonFormatter = () => {
         <CheckCircle size={16} /> Format JSON
       </button>
       <button className="btn-secondary" onClick={handleMinify}>
-        <span style={{ transform: 'rotate(45deg)', display: 'inline-block' }}>⤡</span> Minify
+        <span>⤡</span> Minify
       </button>
       <button className="btn-secondary" onClick={handleValidate}>
         <CheckCircle size={16} /> Validate
@@ -86,16 +87,16 @@ const JsonFormatter = () => {
       about="This tool helps you format, validate and beautify JSON data. You can also minify JSON, check for syntax errors and copy or download the result."
       relatedTools={['json-validator', 'json-minifier', 'json-to-csv', 'csv-to-json', 'text-diff']}
     >
-      <div className="split-workspace" style={{ height: '100%' }}>
+      <div className="split-workspace json-formatter-workspace">
         {/* Left Panel: Input */}
         <div className="workspace-panel">
           <div className="workspace-header">
             <span>Input</span>
-            <button onClick={handleClear} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
+            <button onClick={handleClear} className="json-formatter-clear-btn">
               <Trash2 size={14} /> Clear
             </button>
           </div>
-          <div className="workspace-content" style={{ padding: 0 }}>
+          <div className="workspace-content json-formatter-panel-content">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -109,11 +110,11 @@ const JsonFormatter = () => {
         <div className="workspace-panel">
           <div className="workspace-header">
             <span>Output</span>
-            <button onClick={handleCopy} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', backgroundColor: 'var(--accent-primary)', color: 'white', border: 'none', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>
+            <button onClick={handleCopy} className="json-formatter-copy-btn">
               <Copy size={14} /> Copy
             </button>
           </div>
-          <div className="workspace-content" style={{ padding: 0, backgroundColor: 'var(--bg-main)' }}>
+          <div className="workspace-content json-formatter-output-content">
             <textarea
               value={output}
               readOnly
@@ -125,25 +126,13 @@ const JsonFormatter = () => {
       </div>
       
       {status && (
-        <div style={{ 
-          marginTop: '1.5rem', 
-          padding: '1rem 1.5rem', 
-          borderRadius: 'var(--radius-md)', 
-          backgroundColor: status.type === 'success' ? 'var(--success-bg)' : 'var(--error-bg)',
-          color: status.type === 'success' ? 'var(--success)' : 'var(--error)',
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '0.5rem',
-          fontWeight: 500
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div className={`json-formatter-status ${status.type}`}>
+          <div className="json-formatter-status-msg">
             {status.type === 'success' ? <CheckCircle size={20} /> : <XCircle size={20} />}
             {status.message}
           </div>
           {status.type === 'success' && output && (
-            <span style={{ fontSize: '0.8125rem' }}>
+            <span className="json-formatter-status-meta">
               {output.split('\n').length} lines · {output.length} chars
             </span>
           )}

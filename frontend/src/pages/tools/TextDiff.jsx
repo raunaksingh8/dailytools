@@ -5,6 +5,7 @@ import { diffWords, diffJson } from 'diff';
 import { Copy, Download } from 'lucide-react';
 import { downloadFile } from '../../utils/downloadFile';
 import { useToast } from '../../components/Toast';
+import '../../styles/text-diff.css';
 
 export const TextDiffTool = () => {
   const tool = tools.find(t => t.slug === 'text-diff');
@@ -45,32 +46,30 @@ export const TextDiffTool = () => {
 
   return (
     <ToolLayout tool={tool} toolbarActions={toolbarActions}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', height: '100%' }}>
+      <div className="diff-workspace-layout">
         <div className="split-workspace">
           <div className="workspace-panel">
             <div className="workspace-header">Original Text</div>
-            <div className="workspace-content" style={{ padding: 0 }}>
+            <div className="workspace-content diff-workspace-content">
               <textarea value={textA} onChange={e => setTextA(e.target.value)} placeholder="Paste original text here..." spellCheck="false" />
             </div>
           </div>
           <div className="workspace-panel">
             <div className="workspace-header">Changed Text</div>
-            <div className="workspace-content" style={{ padding: 0 }}>
+            <div className="workspace-content diff-workspace-content">
               <textarea value={textB} onChange={e => setTextB(e.target.value)} placeholder="Paste changed text here..." spellCheck="false" />
             </div>
           </div>
         </div>
 
         {diffResult && (
-          <div className="workspace-panel" style={{ height: '300px' }}>
+          <div className="workspace-panel diff-result-panel">
             <div className="workspace-header">Differences</div>
-            <div className="workspace-content" style={{ padding: '1.5rem', overflow: 'auto', backgroundColor: 'var(--bg-hover)', whiteSpace: 'pre-wrap', fontFamily: 'var(--font-sans)', fontSize: '1rem' }}>
+            <div className="workspace-content diff-result-content">
               {diffResult.map((part, index) => {
-                const color = part.added ? 'var(--success)' : part.removed ? 'var(--error)' : 'inherit';
-                const bg = part.added ? 'var(--success-bg)' : part.removed ? 'var(--error-bg)' : 'transparent';
-                const decoration = part.removed ? 'line-through' : 'none';
+                const className = part.added ? 'diff-part-added' : part.removed ? 'diff-part-removed' : 'diff-part-unchanged';
                 return (
-                  <span key={index} style={{ color, backgroundColor: bg, textDecoration: decoration }}>
+                  <span key={index} className={className}>
                     {part.value}
                   </span>
                 );
@@ -108,33 +107,32 @@ export const JsonDiffTool = () => {
 
   return (
     <ToolLayout tool={tool} toolbarActions={toolbarActions}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', height: '100%' }}>
+      <div className="diff-workspace-layout">
         <div className="split-workspace">
           <div className="workspace-panel">
             <div className="workspace-header">Original JSON</div>
-            <div className="workspace-content" style={{ padding: 0 }}>
+            <div className="workspace-content diff-workspace-content">
               <textarea value={textA} onChange={e => setTextA(e.target.value)} placeholder="Paste original JSON here..." spellCheck="false" />
             </div>
           </div>
           <div className="workspace-panel">
             <div className="workspace-header">Changed JSON</div>
-            <div className="workspace-content" style={{ padding: 0 }}>
+            <div className="workspace-content diff-workspace-content">
               <textarea value={textB} onChange={e => setTextB(e.target.value)} placeholder="Paste changed JSON here..." spellCheck="false" />
             </div>
           </div>
         </div>
 
-        {error && <div style={{ color: 'var(--error)', padding: '1rem', backgroundColor: 'var(--error-bg)', borderRadius: 'var(--radius-md)' }}>{error}</div>}
+        {error && <div className="diff-error-msg">{error}</div>}
 
         {diffResult && !error && (
-          <div className="workspace-panel" style={{ height: '300px' }}>
+          <div className="workspace-panel diff-result-panel">
             <div className="workspace-header">Differences</div>
-            <div className="workspace-content" style={{ padding: '1.5rem', overflow: 'auto', backgroundColor: 'var(--bg-hover)', whiteSpace: 'pre-wrap' }}>
+            <div className="workspace-content diff-result-content-json">
               {diffResult.map((part, index) => {
-                const color = part.added ? 'var(--success)' : part.removed ? 'var(--error)' : 'inherit';
-                const bg = part.added ? 'var(--success-bg)' : part.removed ? 'var(--error-bg)' : 'transparent';
+                const className = part.added ? 'diff-part-added' : part.removed ? 'diff-part-removed-json' : 'diff-part-unchanged';
                 return (
-                  <span key={index} style={{ color, backgroundColor: bg }}>
+                  <span key={index} className={className}>
                     {part.value}
                   </span>
                 );
