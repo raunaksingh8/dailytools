@@ -158,7 +158,7 @@ DailyTools is designed with your privacy in mind.
 
 ```bash
 # Clone the repository
-git clone <your-repository-url>
+git clone <repository-url>
 cd dailytools
 ```
 
