@@ -36,7 +36,7 @@ const Footer = () => {
       </div>
       <div className="container footer-bottom">
         {/* © {new Date().getFullYear()} DailyTools. All rights reserved. */}
-        <span>© DailyTools. All rights reserved.</span>
+        <span>© DailyTools. All rights reserved. </span>
         <span className="footer-maintained">
           Developed and Maintained by Raunak Singh.
         </span>

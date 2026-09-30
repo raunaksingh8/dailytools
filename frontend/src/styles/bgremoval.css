@@ -1,0 +1,514 @@
+.bg-removal-page {
+    padding: 1.5rem 0 5rem;
+    min-height: calc(100vh - 80px);
+}
+
+/* Header */
+
+.bg-removal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.bg-removal-icon {
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.875rem;
+    background: var(--accent-primary);
+    color: #ffffff;
+}
+
+.bg-removal-header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+
+.bg-removal-header p {
+    margin: 0.4rem 0 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Upload */
+
+.bg-removal-upload-card {
+    min-height: 390px;
+    padding: 3rem 2rem;
+    border: 1.5px dashed var(--border-color);
+    border-radius: var(--radius-xl);
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.bg-removal-upload-card:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-secondary);
+}
+
+.bg-removal-upload-icon {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    background: rgba(124, 92, 255, 0.1);
+    color: var(--accent-primary);
+}
+
+.bg-removal-upload-card h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.bg-removal-upload-card p {
+    margin: 0.5rem 0 0;
+    color: var(--text-secondary);
+}
+
+.bg-removal-upload-hint {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.bg-removal-browse-btn {
+    margin-top: 1.5rem;
+}
+
+/* Editor */
+
+.bg-removal-editor {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+}
+
+.bg-removal-editor-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.bg-removal-file-info {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.bg-removal-file-info span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bg-removal-clear-btn {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bg-removal-clear-btn:hover:not(:disabled) {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.bg-removal-clear-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Preview */
+
+.bg-removal-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.bg-removal-preview-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+}
+
+.bg-removal-preview-label {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.bg-removal-image-container {
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    overflow: hidden;
+}
+
+.bg-removal-result-bg {
+    background-image:
+        linear-gradient(45deg, #e7e7e7 25%, transparent 25%),
+        linear-gradient(-45deg, #e7e7e7 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e7e7e7 75%),
+        linear-gradient(-45deg, transparent 75%, #e7e7e7 75%);
+    background-size: 20px 20px;
+    background-position:
+        0 0,
+        0 10px,
+        10px -10px,
+        -10px 0;
+    background-color: #ffffff;
+}
+
+.bg-removal-preview-image {
+    display: block;
+    max-width: 100%;
+    max-height: 420px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+
+.bg-removal-empty-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.bg-removal-empty-result svg {
+    color: var(--accent-primary);
+}
+
+/* Processing */
+
+.bg-removal-processing {
+    width: min(100%, 340px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.bg-removal-spinner-wrapper {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: rgba(124, 92, 255, 0.1);
+    color: var(--accent-primary);
+}
+
+.bg-removal-processing-spinner {
+    flex-shrink: 0;
+    transform-origin: center;
+    animation: bg-removal-spin 0.8s linear infinite;
+    will-change: transform;
+}
+
+.bg-removal-processing h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.bg-removal-processing-stage {
+    min-height: 1.25rem;
+    margin: 0.4rem 0 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.bg-removal-progress-wrapper {
+    width: 100%;
+}
+
+.bg-removal-progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.bg-removal-progress-header span:last-child {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.bg-removal-progress-track {
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--border-color);
+}
+
+.bg-removal-progress-fill {
+    height: 100%;
+    min-width: 0;
+    border-radius: inherit;
+    background: var(--accent-primary);
+    transition: width 0.12s linear;
+}
+
+.bg-removal-processing-hint {
+    display: block;
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    line-height: 1.4;
+}
+
+@keyframes bg-removal-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Actions */
+
+.bg-removal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.bg-removal-main-btn {
+    min-width: 190px;
+}
+
+.bg-removal-reset-btn {
+    min-width: 130px;
+}
+
+.bg-removal-spinner {
+    animation: bg-removal-spin 0.8s linear infinite;
+}
+
+/* Error */
+
+.bg-removal-error {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ef4444;
+    border-radius: var(--radius-md);
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+    font-size: 0.85rem;
+}
+
+/* Privacy */
+
+.bg-removal-privacy {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+}
+
+.bg-removal-privacy>svg {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    color: var(--accent-primary);
+}
+
+.bg-removal-privacy strong {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--text-primary);
+    font-size: 0.88rem;
+}
+
+.bg-removal-privacy p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* How it works */
+
+.bg-removal-info {
+    margin-top: 3rem;
+}
+
+.bg-removal-info h2 {
+    margin: 0 0 1.25rem;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+}
+
+.bg-removal-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.bg-removal-step {
+    display: flex;
+    gap: 0.85rem;
+    padding: 1.15rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+}
+
+.bg-removal-step>span {
+    width: 1.8rem;
+    height: 1.8rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.bg-removal-step h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.bg-removal-step p {
+    margin: 0.35rem 0 0;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+    .bg-removal-page {
+        padding: 2.5rem 0 4rem;
+    }
+
+    .bg-removal-preview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bg-removal-steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .bg-removal-page {
+        padding: 2rem 0 3rem;
+    }
+
+    .bg-removal-header {
+        align-items: flex-start;
+    }
+
+    .bg-removal-icon {
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+
+    .bg-removal-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .bg-removal-header p {
+        font-size: 0.85rem;
+    }
+
+    .bg-removal-upload-card {
+        min-height: 340px;
+        padding: 2rem 1.25rem;
+    }
+
+    .bg-removal-editor {
+        padding: 1rem;
+    }
+
+    .bg-removal-image-container {
+        min-height: 250px;
+    }
+
+    .bg-removal-processing {
+        max-width: 280px;
+    }
+
+    .bg-removal-actions {
+        flex-direction: column;
+    }
+
+    .bg-removal-main-btn,
+    .bg-removal-reset-btn {
+        width: 100%;
+    }
+
+    .bg-removal-privacy {
+        padding: 0.9rem;
+    }
+}

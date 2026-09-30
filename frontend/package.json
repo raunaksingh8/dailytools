@@ -10,18 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@imgly/background-removal": "^1.7.0",
     "browser-image-compression": "^2.0.2",
     "crypto-js": "^4.2.0",
     "diff": "^9.0.0",
+    "docx": "^9.8.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "jszip": "^3.10.2",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^1.48.0",
+    "mammoth": "^1.13.0",
     "papaparse": "^5.7.0",
     "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.6.205",
+    "pptxgenjs": "^4.0.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",
     "sql-formatter": "^15.9.0",
-    "uuid": "^14.0.2"
+    "uuid": "^14.0.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
