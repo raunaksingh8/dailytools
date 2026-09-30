@@ -7,13 +7,13 @@ import { jwtDecode } from 'jwt-decode';
 
 // Base64
 export const Base64Tool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="base64" actionName="Encode/Decode"
     processFn={(input) => {
       try {
         const decoded = atob(input);
         if (btoa(decoded) === input) return decoded;
-      } catch (e) {}
+      } catch (e) { }
       return btoa(input);
     }}
   />
@@ -21,10 +21,10 @@ export const Base64Tool = () => (
 
 // URL Encoder
 export const UrlEncoderTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="url-encoder" actionName="Encode/Decode URL"
     processFn={(input) => {
-      try { return decodeURIComponent(input) !== input ? decodeURIComponent(input) : encodeURIComponent(input); } 
+      try { return decodeURIComponent(input) !== input ? decodeURIComponent(input) : encodeURIComponent(input); }
       catch (e) { return encodeURIComponent(input); }
     }}
   />
@@ -32,7 +32,7 @@ export const UrlEncoderTool = () => (
 
 // HTML Encoder
 export const HtmlEncoderTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="html-encoder" actionName="Encode HTML"
     processFn={(input) => {
       const el = document.createElement('div');
@@ -44,13 +44,13 @@ export const HtmlEncoderTool = () => (
 
 // UUID Generator
 export const UuidGeneratorTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="uuid-generator" actionName="Generate UUIDs"
     inputPlaceholder="Enter number of UUIDs (max 1000)"
     processFn={(input) => {
       const count = parseInt(input) || 1;
       let res = '';
-      for(let i=0; i<Math.min(count, 1000); i++) res += uuidv4() + '\n';
+      for (let i = 0; i < Math.min(count, 1000); i++) res += uuidv4() + '\n';
       return res.trim();
     }}
     downloadConfig={{ filename: 'uuids.txt', mimeType: 'text/plain' }}
@@ -59,7 +59,7 @@ export const UuidGeneratorTool = () => (
 
 // Hash Generator
 export const HashGeneratorTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="hash-generator" actionName="Generate Hashes"
     processFn={(input) => {
       return `MD5:\n${CryptoJS.MD5(input).toString()}\n\nSHA-1:\n${CryptoJS.SHA1(input).toString()}\n\nSHA-256:\n${CryptoJS.SHA256(input).toString()}\n\nSHA-512:\n${CryptoJS.SHA512(input).toString()}`;
@@ -70,7 +70,7 @@ export const HashGeneratorTool = () => (
 
 // Escape / Unescape
 export const EscapeUnescapeTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="escape-unescape" actionName="Escape/Unescape"
     processFn={(input) => {
       if (input.includes('\\n') || input.includes('\\"')) {
@@ -83,7 +83,7 @@ export const EscapeUnescapeTool = () => (
 
 // Unicode Converter
 export const UnicodeConverterTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="unicode-converter" actionName="Convert"
     processFn={(input) => {
       if (input.includes('\\u')) {
@@ -96,7 +96,7 @@ export const UnicodeConverterTool = () => (
 
 // JWT Decoder
 export const JwtDecoderTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="jwt-decoder" actionName="Decode JWT"
     processFn={(input) => {
       const decoded = jwtDecode(input, { header: true });
@@ -108,7 +108,7 @@ export const JwtDecoderTool = () => (
 
 // SQL Formatter
 export const SqlFormatterTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="sql-formatter" actionName="Format SQL"
     processFn={(input) => sqlFormat(input, { language: 'sql', tabWidth: 2, keywordCase: 'upper' })}
     downloadConfig={{ filename: 'formatted.sql', mimeType: 'text/plain' }}
@@ -117,7 +117,7 @@ export const SqlFormatterTool = () => (
 
 // SQL IN Generator
 export const SqlInGeneratorTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="sql-in-generator" actionName="Generate IN Clause"
     inputPlaceholder="Paste list of items, one per line"
     processFn={(input) => {
@@ -132,7 +132,7 @@ export const SqlInGeneratorTool = () => (
 
 // Timestamp Converter
 export const TimestampConverterTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="timestamp-converter" actionName="Convert"
     inputPlaceholder="Enter Unix timestamp (seconds/ms) OR ISO date string"
     processFn={(input) => {
@@ -152,7 +152,7 @@ export const TimestampConverterTool = () => (
 
 // URL Parser
 export const UrlParserTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="url-parser" actionName="Parse URL"
     processFn={(input) => {
       const url = new URL(input);
@@ -168,7 +168,7 @@ export const UrlParserTool = () => (
 
 // User Agent Parser
 export const UserAgentParserTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="user-agent-parser" actionName="Parse UA"
     processFn={(input) => {
       const ua = input;
@@ -177,13 +177,13 @@ export const UserAgentParserTool = () => (
       else if (ua.includes("Chrome")) browser = "Chrome";
       else if (ua.includes("Safari")) browser = "Safari";
       else if (ua.includes("Edge")) browser = "Edge";
-      
+
       if (ua.includes("Win")) os = "Windows";
       else if (ua.includes("Mac")) os = "MacOS";
       else if (ua.includes("Linux")) os = "Linux";
       else if (ua.includes("Android")) os = "Android";
       else if (ua.includes("like Mac")) os = "iOS";
-      
+
       return `Browser: ${browser}\nOS: ${os}\nRaw: ${ua}`;
     }}
   />
@@ -191,7 +191,7 @@ export const UserAgentParserTool = () => (
 
 // HTTP Headers Parser
 export const HttpHeadersTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="http-headers" actionName="Parse Headers"
     inputPlaceholder="Paste raw HTTP headers here..."
     processFn={(input) => {
@@ -199,7 +199,7 @@ export const HttpHeadersTool = () => (
       const headers = {};
       lines.forEach(line => {
         const idx = line.indexOf(':');
-        if(idx !== -1) headers[line.slice(0, idx).trim()] = line.slice(idx+1).trim();
+        if (idx !== -1) headers[line.slice(0, idx).trim()] = line.slice(idx + 1).trim();
       });
       return JSON.stringify(headers, null, 2);
     }}
@@ -208,7 +208,7 @@ export const HttpHeadersTool = () => (
 
 // Case Converter
 export const CaseConverterTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="case-converter" actionName="Convert Cases"
     processFn={(input) => {
       return `UPPERCASE:\n${input.toUpperCase()}\n\nlowercase:\n${input.toLowerCase()}\n\nTitle Case:\n${input.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())}`;
@@ -218,15 +218,16 @@ export const CaseConverterTool = () => (
 
 // Remove Duplicate Lines
 export const RemoveDuplicateLinesTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="remove-duplicate-lines" actionName="Remove Duplicates"
     processFn={(input) => [...new Set(input.split('\n'))].join('\n')}
+    downloadConfig={{ filename: 'unique.txt', mimeType: 'text/plain' }}
   />
 );
 
 // Remove Empty Lines
 export const RemoveEmptyLinesTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="remove-empty-lines" actionName="Remove Empty Lines"
     processFn={(input) => input.split('\n').filter(line => line.trim().length > 0).join('\n')}
   />
@@ -234,7 +235,7 @@ export const RemoveEmptyLinesTool = () => (
 
 // cURL Generator
 export const CurlGeneratorTool = () => (
-  <TextConversionTool 
+  <TextConversionTool
     slug="curl-generator" actionName="Generate cURL"
     inputPlaceholder="Paste JSON with { method, url, headers, body }"
     processFn={(input) => {
@@ -264,7 +265,7 @@ export const HttpStatusCodesTool = () => {
     500: "Internal Server Error", 502: "Bad Gateway", 503: "Service Unavailable"
   };
   return (
-    <TextConversionTool 
+    <TextConversionTool
       slug="http-status-codes" actionName="Lookup"
       inputPlaceholder="Enter HTTP status code (e.g., 404)"
       processFn={(input) => {
