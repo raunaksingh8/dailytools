@@ -1,0 +1,111 @@
+.privacy-page {
+    min-height: calc(100vh - 72px);
+    padding: 4rem 1.5rem 5rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.privacy-container {
+    width: min(100%, 900px);
+    margin: 0 auto;
+}
+
+.privacy-header {
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.privacy-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    color: var(--accent-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.privacy-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+}
+
+.privacy-header p {
+    max-width: 720px;
+    margin: 1rem 0 0;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.privacy-updated {
+    display: block;
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.privacy-content {
+    padding-top: 2.5rem;
+}
+
+.privacy-content section {
+    margin-bottom: 2.5rem;
+}
+
+.privacy-content h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+.privacy-content p {
+    margin: 0 0 0.9rem;
+    color: var(--text-secondary);
+    font-size: 0.975rem;
+    line-height: 1.75;
+}
+
+.privacy-content p:last-child {
+    margin-bottom: 0;
+}
+
+.privacy-note {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.privacy-note strong {
+    flex-shrink: 0;
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .privacy-page {
+        padding: 3rem 1rem 4rem;
+    }
+
+    .privacy-header {
+        padding-bottom: 2rem;
+    }
+
+    .privacy-content {
+        padding-top: 2rem;
+    }
+
+    .privacy-content section {
+        margin-bottom: 2rem;
+    }
+
+    .privacy-note {
+        flex-direction: column;
+    }
+}

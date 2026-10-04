@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ToastProvider } from './components/Toast';
 import Home from './pages/Home';
+import ScrollToTop from './components/ScrollToTop';
 
 import Developer from './pages/Developer';
 import Files from './pages/Files';
@@ -39,9 +40,14 @@ import PowerPointToPdf from './pages/tools/PowerPointToPdf';
 
 import { tools } from './data/tools';
 
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import RequestFeature from './pages/RequestFeature';
+
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <ToastProvider />
       <div className="app-shell">
         <Navbar />
@@ -115,6 +121,12 @@ const App = () => {
             <Route path="/text/remove-empty-lines" element={<RemoveEmptyLinesTool />} />
             <Route path="/text/text-diff" element={<TextDiffTool />} />
 
+            {/* Footer */}
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/request-feature" element={<RequestFeature />} />
+
+
             {/* 404 */}
             <Route path="*" element={
               <div className="container not-found-page">
@@ -122,6 +134,7 @@ const App = () => {
                 <p className="text-secondary not-found-message">The page you are looking for doesn't exist.</p>
               </div>
             } />
+
           </Routes>
         </main>
         <Footer />
