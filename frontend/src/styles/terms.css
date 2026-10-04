@@ -1,0 +1,123 @@
+.terms-page {
+    min-height: calc(100vh - 72px);
+    padding: 4rem 1.5rem 5rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.terms-container {
+    width: min(100%, 900px);
+    margin: 0 auto;
+}
+
+.terms-header {
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.terms-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    color: var(--accent-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.terms-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+}
+
+.terms-header p {
+    max-width: 720px;
+    margin: 1rem 0 0;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.terms-updated {
+    display: block;
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.terms-content {
+    padding-top: 2.5rem;
+}
+
+.terms-content section {
+    margin-bottom: 2.5rem;
+}
+
+.terms-content h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+.terms-content p {
+    margin: 0 0 0.9rem;
+    color: var(--text-secondary);
+    font-size: 0.975rem;
+    line-height: 1.75;
+}
+
+.terms-content p:last-child {
+    margin-bottom: 0;
+}
+
+.terms-content ul {
+    margin: 0.75rem 0 0;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.terms-content li {
+    margin-bottom: 0.5rem;
+    font-size: 0.975rem;
+    line-height: 1.7;
+}
+
+.terms-note {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.terms-note strong {
+    flex-shrink: 0;
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .terms-page {
+        padding: 3rem 1rem 4rem;
+    }
+
+    .terms-header {
+        padding-bottom: 2rem;
+    }
+
+    .terms-content {
+        padding-top: 2rem;
+    }
+
+    .terms-content section {
+        margin-bottom: 2rem;
+    }
+
+    .terms-note {
+        flex-direction: column;
+    }
+}

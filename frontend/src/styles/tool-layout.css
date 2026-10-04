@@ -149,8 +149,9 @@
   background: transparent;
   color: var(--text-primary);
   overflow: auto;
-  white-space: pre;
-  word-wrap: normal;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .workspace-content textarea::placeholder {
@@ -184,4 +185,10 @@
     align-items: stretch;
   }
 }
-.toolbar-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; }
+
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
