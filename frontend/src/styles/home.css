@@ -3,8 +3,9 @@
 ========================================= */
 
 /* =========================================
-   Hero Grid — single col mobile, 2-col desktop
+   Hero Grid
 ========================================= */
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -24,7 +25,10 @@
   overflow-x: hidden;
 }
 
-/* ── Search Results ── */
+/* =========================================
+   Search Results
+========================================= */
+
 .home-search-results {
   padding: 3rem 0;
   min-height: calc(100vh - 200px);
@@ -60,18 +64,14 @@
   font-size: 0.8rem;
 }
 
-/* ── Hero ── */
+/* =========================================
+   Hero
+========================================= */
+
 .hero-section {
   background-color: var(--bg-hero);
   color: var(--text-hero);
   padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(2rem, 4vw, 3.5rem);
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  align-items: center;
 }
 
 .hero-text-container {
@@ -96,8 +96,46 @@
   letter-spacing: -0.025em;
 }
 
+/* Keeps "everyday digital work" together */
+.hero-everyday-line {
+  display: block;
+  white-space: nowrap;
+}
+
 .hero-text-highlight {
   color: var(--accent-primary);
+}
+
+/* =========================================
+   Rotating Hero Phrase
+========================================= */
+
+.hero-rotating-phrase {
+  display: inline-block;
+  white-space: nowrap;
+
+  /*
+    Keeps the heading from moving noticeably
+    when different phrases have different widths.
+  */
+  min-width: 11.5ch;
+
+  text-align: left;
+  transform-origin: center;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.phrase-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.phrase-hidden {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 .hero-desc {
@@ -107,6 +145,10 @@
   line-height: 1.65;
   max-width: 460px;
 }
+
+/* =========================================
+   Hero Search
+========================================= */
 
 .hero-search-form {
   position: relative;
@@ -152,6 +194,10 @@
   min-width: 44px;
 }
 
+/* =========================================
+   Hero Decorative Icons
+========================================= */
+
 .hero-icons-container {
   position: relative;
   height: 300px;
@@ -180,7 +226,7 @@
   right: 2%;
   width: 130px;
   height: 130px;
-  background-color: #F59E0B;
+  background-color: #f59e0b;
   transform: rotate(-10deg);
 }
 
@@ -189,7 +235,7 @@
   right: 38%;
   width: 96px;
   height: 96px;
-  background-color: #10B981;
+  background-color: #10b981;
   transform: rotate(5deg);
 }
 
@@ -199,7 +245,10 @@
   color: white;
 }
 
-/* ── Category Cards ── */
+/* =========================================
+   Category Cards
+========================================= */
+
 .categories-section {
   padding: clamp(1.5rem, 3vw, 3rem) 0;
   position: relative;
@@ -212,7 +261,8 @@
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: repeat(auto-fit,
+      minmax(min(100%, 280px), 1fr));
   gap: 1.25rem;
 }
 
@@ -231,11 +281,11 @@
 }
 
 .category-icon-files {
-  color: #F59E0B;
+  color: #f59e0b;
 }
 
 .category-icon-text {
-  color: #10B981;
+  color: #10b981;
 }
 
 .category-icon-text span {
@@ -260,7 +310,10 @@
   font-size: 0.875rem;
 }
 
-/* ── Popular Tools ── */
+/* =========================================
+   Popular Tools
+========================================= */
+
 .popular-section {
   padding: 0 0 clamp(3rem, 6vw, 5rem) 0;
 }
@@ -284,9 +337,9 @@
 }
 
 /* =========================================
-   Desktop UI Restore (Home page only)
-   Preserves mobile layout, targets >=1024px
+   Desktop UI Restore
 ========================================= */
+
 @media (min-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr 1fr;
@@ -360,7 +413,8 @@
   }
 
   .categories-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit,
+        minmax(300px, 1fr)) !important;
     gap: 1.5rem !important;
   }
 
@@ -375,6 +429,30 @@
 
   .popular-section {
     padding: 0 0 6rem 0 !important;
+  }
+}
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media (max-width: 767px) {
+  .hero-everyday-line {
+    white-space: normal;
+  }
+
+  .hero-rotating-phrase {
+    white-space: nowrap;
+  }
+}
+
+/* =========================================
+   Small Mobile
+========================================= */
+
+@media (max-width: 480px) {
+  .hero-rotating-phrase {
+    min-width: 0;
   }
 }
 

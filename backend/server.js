@@ -4,12 +4,14 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 const app = express();
+const requestFeatureAPI = require('./API/RequestfeatureAPI');
 
 app.use(helmet());
 app.use(cors({
   origin: process.env.FRONTEND_URL || '*'
 }));
 app.use(express.json());
+app.use("/api", requestFeatureAPI);
 
 // Health endpoint
 app.get('/api/health', (req, res) => {
