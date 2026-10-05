@@ -15,8 +15,8 @@ const Home = () => {
     'digital work',
     'creative work',
     'technical work',
-    'productive work',
     'online work',
+    'daily work',
   ];
 
   const [phraseIndex, setPhraseIndex] = useState(0);
