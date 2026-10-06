@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/notification.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+if (!API_BASE_URL) {
+    console.error("VITE_API_URL is not configured");
+}
 
 const Notifications = () => {
     const [isOpen, setIsOpen] = useState(false);
