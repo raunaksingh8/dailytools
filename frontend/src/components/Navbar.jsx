@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Search, Sun, Moon, Menu, X, Zap } from 'lucide-react';
 import '../styles/global.css';
 import '../styles/navbar.css';
+import Notifications from './Notifications';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -94,7 +95,7 @@ const Navbar = () => {
               className="navbar-search-input"
             />
           </form>
-
+          <Notifications />
           {/* Theme toggle */}
           <button
             onClick={toggleTheme}
