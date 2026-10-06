@@ -4,16 +4,25 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 const app = express();
-// api
+
+// API
 const requestFeatureAPI = require('./API/RequestfeatureAPI');
 const updateFeatureAPi = require('./API/UpdatefeatureAPI');
 
+const allowedOrigins = [
+  'https://dailytool.space',
+  'https://www.dailytool.space',
+  'http://localhost:5173',
+];
 
 app.use(helmet());
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*'
+  origin: allowedOrigins,
 }));
+
 app.use(express.json());
+
 app.use("/api", requestFeatureAPI);
 app.use("/api", updateFeatureAPi);
 
@@ -23,6 +32,7 @@ app.get('/api/health', (req, res) => {
 });
 
 const PORT = process.env.PORT || 8000;
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -2,11 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/notification.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-if (!API_BASE_URL) {
-    console.error("VITE_API_URL is not configured");
-}
+import { API_URL } from '../config/api';
 
 const Notifications = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +19,7 @@ const Notifications = () => {
             setHasError(false);
 
             const response = await fetch(
-                `${API_BASE_URL}/api/get-updates`
+                `${API_URL}/api/get-updates`
             );
 
             const result = await response.json();
