@@ -295,9 +295,18 @@ const Notifications = () => {
 
                 {hasNotifications && (
                     <span
-                        className="notification-unread-dot"
-                        aria-label="New updates"
-                    />
+                        className="notification-unread-wave"
+                        aria-label={`${notifications.length} new ${notifications.length === 1 ? 'update' : 'updates'
+                            }`}
+                    >
+                        <span className="notification-unread-wave-ring ring-one" />
+                        <span className="notification-unread-wave-ring ring-two" />
+                        <span className="notification-unread-wave-ring ring-three" />
+
+                        <span className="notification-unread-count">
+                            {notifications.length > 9 ? '9+' : notifications.length}
+                        </span>
+                    </span>
                 )}
             </button>
 
