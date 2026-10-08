@@ -80,27 +80,112 @@
 
 
 /* =========================================================
-   UNREAD DOT
+   NOTIFICATION WAVE INDICATOR
    ========================================================= */
 
-.notification-unread-dot {
+.notification-unread-wave {
     position: absolute;
 
-    top: 0.27rem;
-    right: 0.27rem;
+    /* Slightly above and to the right of the bell */
+    top: -0.20rem;
+    right: -0.12rem;
 
-    width: 0.45rem;
-    height: 0.45rem;
+    width: 1.7rem;
+    height: 1.7rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+
+/* Number in the center */
+
+.notification-unread-count {
+    position: relative;
+
+    z-index: 5;
+
+    width: 0.65rem;
+    height: 0.65rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border-radius: 50%;
 
     background: #8b5cf6;
 
-    border: 2px solid #0f1115;
+    border: 1.5px solid #c4b5fd;
+
+    color: #ffffff;
+
+    font-size: 0.48rem;
+    font-weight: 500;
+    line-height: 1;
+
+    text-align: center;
 
     box-shadow:
-        0 0 0 1px rgba(139, 92, 246, 0.15),
-        0 0 7px rgba(139, 92, 246, 0.55);
+        0 0 7px rgba(139, 92, 246, 0.65),
+        0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+
+/* Expanding wave rings */
+
+.notification-unread-wave-ring {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 1.05rem;
+    height: 1.05rem;
+
+    border: 1px solid rgba(139, 92, 246, 0.55);
+
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%) scale(1);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    animation: notification-wave 2.4s ease-out infinite;
+}
+
+.notification-unread-wave-ring.ring-two {
+    animation-delay: 0.8s;
+}
+
+.notification-unread-wave-ring.ring-three {
+    animation-delay: 1.6s;
+}
+
+
+/* Wave animation */
+
+@keyframes notification-wave {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+
+    70% {
+        opacity: 0.16;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2.4);
+        opacity: 0;
+    }
 }
 
 
@@ -121,25 +206,14 @@
 
     overflow: hidden;
 
-    /*
-     * IMPORTANT:
-     * Solid RGB background.
-     * Do NOT change this to a CSS variable.
-     */
     background: rgb(255, 255, 255);
 
     border: 1px solid rgb(229, 231, 235);
 
     border-radius: 0.95rem;
 
-    /*
-     * No transparency.
-     */
     opacity: 1;
 
-    /*
-     * Prevent backdrop effects from making the panel transparent.
-     */
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 
@@ -324,6 +398,7 @@
 
 .notifications-list {
     display: flex;
+
     flex-direction: column;
 
     background: rgb(255, 255, 255);
@@ -796,7 +871,6 @@ body.dark .notifications-footer {
    ========================================================= */
 
 @media (max-width: 640px) {
-
     .notifications-dropdown {
         position: fixed;
 
@@ -830,7 +904,6 @@ body.dark .notifications-footer {
    ========================================================= */
 
 @media (max-width: 380px) {
-
     .notifications-dropdown {
         top: 4.1rem;
 
@@ -860,7 +933,8 @@ body.dark .notifications-footer {
 
     .notifications-dropdown,
     .notification-loader,
-    .notification-refresh-spinning {
+    .notification-refresh-spinning,
+    .notification-unread-wave-ring {
         animation: none;
     }
 
