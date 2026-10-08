@@ -78,14 +78,59 @@
   max-width: 560px;
 }
 
+@property --badge-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes hero-badge-travel {
+  0% {
+    --badge-angle: 0deg;
+  }
+
+  100% {
+    --badge-angle: 360deg;
+  }
+}
+
 .hero-badge {
+  position: relative;
   display: inline-block;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(168, 85, 247, 0.25);
   border-radius: 2rem;
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
   color: var(--text-hero-secondary);
   margin-bottom: 1.25rem;
+}
+
+.hero-badge::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--badge-angle),
+      transparent 0deg,
+      transparent 160deg,
+      rgba(168, 85, 247, 0.05) 190deg,
+      rgba(168, 85, 247, 0.2) 240deg,
+      rgba(168, 85, 247, 0.5) 290deg,
+      #a855f7 280deg,
+      #c084fc 352deg,
+      #f3e8ff 360deg);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: hero-badge-travel 4s linear infinite;
+  filter: drop-shadow(0 0 3px #c084fc) drop-shadow(0 0 8px rgba(168, 85, 247, 0.75));
 }
 
 .responsive-hero-text {
